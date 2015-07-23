@@ -1,0 +1,35 @@
+.navbar-nav>.messages-menu>.dropdown-menu>li .menu>li>a>p {
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.treeview-menu>li>a.add-but {
+	color: #f4f4f4 !important;
+	z-index: 4;
+	padding: 1px 5px;
+	font-size: 12px;
+	border-radius: 3px;
+	margin-top: 4px;
+	margin-right: 4px;
+}
+#datatables div.btn-group {
+	width: 122px;
+}
+.tag.label {
+	font-size: inherit;
+	line-height: 2em;	
+}
+.bootstrap-tagsinput {
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	display: block !important;
+}
+.action_name {
+	float: left;
+}
+.action_name h3 {
+	margin: 4px;
+}
+.buttons {
+	float: right;
+	
+}

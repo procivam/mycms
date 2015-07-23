@@ -1,0 +1,42 @@
+<?php 
+
+return [
+    /**
+    *   Backend translations
+    */
+    'Toggle navigation' => 'Toggle navigation',
+    'New messages' => '{0} You dont have messages | You have :count message | You have :count messages',
+    'See All Messages' => 'See All Messages',
+    'New notifications' => '{0} You dont have notifications | You have :count notification | You have :count notifications',
+    'View all' => 'View all',
+    'Search' => 'Search',
+    'Main navigation' => 'MAIN NAVIGATION',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+    '' => '',
+];
