@@ -71,26 +71,21 @@ jQuery(document).ready(function(){
     if ($('.close_form').length) {
     	$('.close_form').click(function(event){
     		var it = $(this);
-	    	var flag = false;
 	    	$('form[name="main_form"]').find('input[type="text"], textarea').each(function(index, el){
-	    		if ( $(el).val().length )
-	    			flag = true;
-	    		return true;
+	    		if ( $(el).val().length ) {
+	    			event.preventDefault();
+		    		$.smkConfirm({
+			    			text: 'Вы действительно хотите закрыть? Вся информация потеряется',
+			    			accept: 'Да',
+			    			cancel: 'Нет'
+			    		},
+			    		function(e) {
+			    			if (e) {
+			    				location.href = $(it).attr('href');
+			    			};
+			    	});
+	    		}
 	    	});
-	    	if (flag == true) {
-    			event.preventDefault();
-	    		$.smkConfirm({
-		    			text: 'Вы действительно хотите закрыть? Вся информация потеряется',
-		    			accept: 'Да',
-		    			cancel: 'Нет'
-		    		},
-		    		function(e) {
-		    			if (e) {
-		    				location.href = $(it).attr('href');
-		    			};
-		    		}
-	    		);
-	    	};
     	});
     };
 
