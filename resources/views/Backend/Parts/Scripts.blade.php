@@ -49,6 +49,8 @@
 <script src="/Backend/plugins/bootstrap-switch/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- Bootstrap tagsinput -->
 <script src="/Backend/plugins/tagsinput/bootstrap-tagsinput.min.js" type="text/javascript"></script>
+<!-- Jquery smoke -->
+<script src="/Backend/plugins/smoke/smoke.min.js" type="text/javascript"></script>
 
 <!-- Programmer cripts -->
 <script src="/Backend/js/prog.js" type="text/javascript"></script>

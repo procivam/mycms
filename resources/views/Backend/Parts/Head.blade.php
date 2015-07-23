@@ -29,6 +29,9 @@
 <link rel="stylesheet" type="text/css" href="/Backend/plugins/bootstrap-switch/bootstrap-switch.min.css">
 <!-- Bootstrap tagsinput -->
 <link rel="stylesheet" type="text/css" href="/Backend/plugins/tagsinput/bootstrap-tagsinput.css">
+<!-- jQuery smoke -->
+<link rel="stylesheet" type="text/css" href="/Backend/plugins/smoke/smoke.min.css">
+
 
 <!-- bootstrap wysihtml5 - text editor -->
 <link href="/Backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />

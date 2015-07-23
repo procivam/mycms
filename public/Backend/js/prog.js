@@ -70,18 +70,26 @@ jQuery(document).ready(function(){
     // Confirm close create or edit forms
     if ($('.close_form').length) {
     	$('.close_form').click(function(event){
+    		var it = $(this);
 	    	var flag = false;
 	    	$('form[name="main_form"]').find('input[type="text"], textarea').each(function(index, el){
-	    		if ( $(el).val().length ) {
-	    			console.log($(el).val());
+	    		if ( $(el).val().length )
 	    			flag = true;
-	    		};
+	    		return true;
 	    	});
 	    	if (flag == true) {
-	    		var res = confirm('Are your sure your want to exit');
-	    		if (!res) {
-	    			return false;
-	    		};
+    			event.preventDefault();
+	    		$.smkConfirm({
+		    			text: 'Вы действительно хотите закрыть? Вся информация потеряется',
+		    			accept: 'Да',
+		    			cancel: 'Нет'
+		    		},
+		    		function(e) {
+		    			if (e) {
+		    				location.href = $(it).attr('href');
+		    			};
+		    		}
+	    		);
 	    	};
     	});
     };
