@@ -147,7 +147,7 @@ return [
 
         Arrilot\Widgets\ServiceProvider::class,
         Menu\MenuServiceProvider::class,
-
+        anlutro\LaravelSettings\ServiceProvider::class,
     ],
 
     /*
@@ -198,6 +198,7 @@ return [
         'Widget'    => Arrilot\Widgets\Facade::class,
         'AsyncWidget' => Arrilot\Widgets\AsyncFacade::class,
         'Menu' => Menu\Menu::class,
+        'Setting'   => anlutro\LaravelSettings\Facade::class,
 
     ],
 
