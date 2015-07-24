@@ -37,8 +37,11 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'bac
 	// Link to controller
 	Route::get('pages', "PagesController@index");
 	Route::get('pages/create', "PagesController@create");
+	Route::post('pages/create', "PagesController@store");
 	Route::get('pages/edit/{id}', "PagesController@edit")->where(['id' => '[0-9]+']);
 	Route::post('pages/edit/{id}', "PagesController@update")->where(['id' => '[0-9]+']);
+	Route::get('pages/destroy/{id}', "PagesController@destroy")->where(['id' => '[0-9]+']);
+
 });
 
 

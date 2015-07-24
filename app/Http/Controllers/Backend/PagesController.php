@@ -92,9 +92,22 @@ class PagesController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+        // Validate incoming data
+        $this->validate($request, $this->rights);
+
+        $id = Pages::insertGetId([
+            'name'        => $request->name,
+            'alias'       => $request->alias,
+            'title'       => $request->title,
+            'h1'          => $request->h1,
+            'text'        => $request->text,
+            'keywords'    => $request->keywords,
+            'description' => $request->description,
+        ], 'id');
+        // Redirect
+        return redirect()->action('Backend\PagesController@edit', [$id]);
     }
 
     /**
@@ -172,6 +185,9 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // remove page
+        Pages::find($id)->delete();
+
+        return redirect()->action('Backend\PagesController@index');
     }
 }
