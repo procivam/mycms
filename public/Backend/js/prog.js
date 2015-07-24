@@ -71,21 +71,25 @@ jQuery(document).ready(function(){
     if ($('.close_form').length) {
     	$('.close_form').click(function(event){
     		var it = $(this);
-	    	$('form[name="main_form"]').find('input[type="text"], textarea').each(function(index, el){
-	    		if ( $(el).val().length ) {
-	    			event.preventDefault();
-		    		$.smkConfirm({
-			    			text: 'Вы действительно хотите закрыть? Вся информация потеряется',
-			    			accept: 'Да',
-			    			cancel: 'Нет'
-			    		},
-			    		function(e) {
-			    			if (e) {
-			    				location.href = $(it).attr('href');
-			    			};
-			    	});
-	    		}
-	    	});
+    		if ($('form[name="main_form"]').attr('data-changed') == 'true') {
+    			event.preventDefault();
+	    		$.smkConfirm({
+		    			text: 'Вы действительно хотите закрыть? Вся информация будет утеряна!',
+		    			accept: 'Да',
+		    			cancel: 'Нет'
+		    		},
+		    		function(e) {
+		    			if (e) {
+		    				location.href = $(it).attr('href');
+		    			};
+		    	});
+	    	}
+    	});
+    };
+
+    if ($('form[name="main_form"]').length) {
+    	$("input, textarea").bind("keyup keydown keypress change blur", function() {
+	        $('form[name="main_form"]').attr('data-changed', true);
     	});
     };
 

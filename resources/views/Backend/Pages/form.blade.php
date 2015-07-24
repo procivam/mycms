@@ -24,7 +24,7 @@
 		                    Видимость на сайте
 		                    </label>
 		                    <div class="">
-		                    	<input name="status" type="checkbox" class="switcher" {{{ isset($obj) && $obj->status == 1 ? "checked" : "" }}}/>
+		                    	<input name="status" type="checkbox" value="1" class="switcher" {{{ isset($obj) && $obj->status == 1 ? "checked" : "" }}}/>
 		                    </div>
 		                </div>
 	                    <div class="form-group">
