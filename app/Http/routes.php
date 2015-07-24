@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'bac
 	Route::get('pages', "PagesController@index");
 	Route::get('pages/create', "PagesController@create");
 	Route::get('pages/edit/{id}', "PagesController@edit")->where(['id' => '[0-9]+']);
+	Route::post('pages/edit/{id}', "PagesController@update")->where(['id' => '[0-9]+']);
 });
 
 

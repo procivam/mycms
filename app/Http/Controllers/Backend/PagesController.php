@@ -16,15 +16,33 @@ class PagesController extends Controller
     * @access private
     */
     private $moduleName = 'Страницы';
+
+    /**
+    * Validation rights
+    *
+    * @access private
+    */
+    private $rights = [
+        'name'    => 'required|max:255',
+        'alias'   => 'required|max:255',
+        'title'   => 'required|max:255',
+        'h1'      => 'required|max:255',
+        'text'    => 'required'
+    ];
+
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return View
      */
     public function index()
     {
         // Show list with all items (Pages) with controll elements
         $list = Pages::all();
+
+        /**
+        * View make
+        */
 
         // make controlls row
         $controls = view('Backend.Widgets.control', [
@@ -36,7 +54,6 @@ class PagesController extends Controller
         $content = view('Backend.Pages.index', [
             'result' => $list, 
             'moduleName' => $this->moduleName, 
-            'controller' => 'pages', 
             'controls' => $controls
         ]);
 
@@ -46,10 +63,13 @@ class PagesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
+        /**
+        * View make
+        */
         // make controlls row
         $controls = view('Backend.Widgets.control_create', [
             'actionName'  => 'Создание страницы', 
@@ -61,7 +81,6 @@ class PagesController extends Controller
 
         // render all wiev
         $content = view('Backend.Pages.form', [ 
-            'controller' => 'pages', 
             'controls' => $controls,
         ]);
 
@@ -98,6 +117,26 @@ class PagesController extends Controller
     public function edit($id)
     {
         //
+        $obj = Pages::find($id);
+        /**
+        * View
+        */
+        // make controlls row
+        $controls = view('Backend.Widgets.control_create', [
+            'actionName'  => 'Редактирование страницы', 
+            'save'        => true,
+            'saveAndExit' => true,
+            'saveAndLook' => true,
+            'close'       => true,
+        ]);
+        // render all wiev
+        $content = view('Backend.Pages.form', [
+            'obj' => $obj,
+            'controls' => $controls,
+        ]);
+
+        return view('Backend.index', ['content' => $content]);
+
     }
 
     /**
@@ -106,9 +145,23 @@ class PagesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        //
+        // Validate incoming data
+        $this->validate($request, $this->rights);
+
+        $res = Pages::where('id', $id)
+            ->update([
+                'name'        => $request->name,
+                'alias'       => $request->alias,
+                'title'       => $request->title,
+                'h1'          => $request->h1,
+                'text'        => $request->text,
+                'keywords'    => $request->keywords,
+                'description' => $request->description,
+            ]);
+
+        return redirect()->action('Backend\PagesController@edit', [$id]);
     }
 
     /**
