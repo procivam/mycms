@@ -10,7 +10,12 @@ use laravel\Models\Backend\Pages;
 
 class PagesController extends Controller
 {
-    public $moduleName = 'Страницы';
+    /**
+    * Module name for view
+    *
+    * @access private
+    */
+    private $moduleName = 'Страницы';
     /**
      * Display a listing of the resource.
      *
@@ -20,14 +25,14 @@ class PagesController extends Controller
     {
         // Show list with all items (Pages) with controll elements
         $list = Pages::all();
+
+        // make controlls row
         $controls = view('Backend.Widgets.control', [
-            'controller' => 'pages', 
-            'create' => true,
-            'edit' => true,
-            'publish' => false,
-            'delete' => true,
+            'createLong' => true,
             'date_range' => true
         ]);
+
+        // render all view
         $content = view('Backend.Pages.index', [
             'result' => $list, 
             'moduleName' => $this->moduleName, 
@@ -45,15 +50,16 @@ class PagesController extends Controller
      */
     public function create()
     {
-        //
+        // make controlls row
         $controls = view('Backend.Widgets.control_create', [
-            'actionName' => 'Создание страницы', 
-            'controller' => 'pages', 
-            'save' => true,
+            'actionName'  => 'Создание страницы', 
+            'save'        => true,
             'saveAndExit' => true,
             'saveAndLook' => true,
-            'close' => true,
+            'close'       => true,
         ]);
+
+        // render all wiev
         $content = view('Backend.Pages.form', [ 
             'controller' => 'pages', 
             'controls' => $controls,

@@ -4,19 +4,19 @@
 			<h3>{{ $actionName }}</h3>
 		</div>
 		<div class="buttons">
-		    @if($save)
+		    @if(isset($save))
 		    	<input type="submit" value="Сохранить" class="btn btn-success">
 			@endif
 			
-		    @if($saveAndExit)
+		    @if(isset($saveAndExit))
 		    	<input type="submit" value="Сохранить и выйти" class="btn bg-orange">
 			@endif
 
-			@if($saveAndLook)
+			@if(isset($saveAndLook))
 		    	<input type="submit" value="Сохранить и просмотреть" class="btn btn-info">
 			@endif
 
-			@if($close)		
+			@if(isset($close))		
 				<a href="{{ "/backend/$controller" }}" class="btn btn-danger close_form" title="Закрыть">Закрыть</a>
 			@endif
 		</div>
