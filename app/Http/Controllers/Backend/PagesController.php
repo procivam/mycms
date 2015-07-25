@@ -31,6 +31,32 @@ class PagesController extends Controller
     ];
 
     /**
+    * Function redirect to
+    * Defines the actio after save or update actions
+    *
+    * @param integer id default null
+    * @access private 
+    */
+    private function redirectTo($id = null)
+    {
+        $button = \Input::get('action');
+        if (isset($button)) {
+            switch ($button) {
+                case 'Сохранить':
+                    $fullAction = app('request')->route()->getAction();
+                    $controller = class_basename($fullAction['controller']);
+                    $controller = str_replace('store', 'edit', $controller);
+                    return redirect()->action('Backend\\'.$controller, [$id]);
+                    break;
+                case 'Сохранить и просмотреть':
+                    return redirect()->action('Backend\PagesController@edit', [$id]);
+                    break;
+            }
+        }
+        return redirect()->action('Backend\PagesController@index');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return View
@@ -97,18 +123,21 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $id = Pages::insertGetId([
-            'name'        => $request->name,
-            'alias'       => $request->alias,
-            'title'       => $request->title,
-            'status'      => $request->status,
-            'h1'          => $request->h1,
-            'text'        => $request->text,
-            'keywords'    => $request->keywords,
-            'description' => $request->description,
-        ], 'id');
+        $pages = new Pages;
+
+        $pages->name        = $request->name;
+        $pages->alias       = $request->alias;
+        $pages->title       = $request->title;
+        $pages->status      = $request->status ? $request->status : 0;
+        $pages->h1          = $request->h1;
+        $pages->text        = $request->text;
+        $pages->keywords    = $request->keywords;
+        $pages->description = $request->description;
+        
+        $pages->save();
+
         // Redirect
-        return redirect()->action('Backend\PagesController@edit', [$id]);
+        return $this->redirectTo($pages->id);
     }
 
     /**
@@ -164,19 +193,19 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $res = Pages::where('id', $id)
-            ->update([
-                'name'        => $request->name,
-                'alias'       => $request->alias,
-                'title'       => $request->title,
-                'status'      => $request->status,
-                'h1'          => $request->h1,
-                'text'        => $request->text,
-                'keywords'    => $request->keywords,
-                'description' => $request->description,
-            ]);
+        $page = Pages::where('id', $id)->get();
+        $page->name        = $request->name;
+        $page->alias       = $request->alias;
+        $page->title       = $request->title;
+        $page->status      = $request->status ? $request->status : 0;
+        $page->h1          = $request->h1;
+        $page->text        = $request->text;
+        $page->keywords    = $request->keywords;
+        $page->description = $request->description;
+        
+        $page->save();
 
-        return redirect()->action('Backend\PagesController@edit', [$id]);
+        return $this->redirectTo($id);
     }
 
     /**

@@ -332,29 +332,31 @@
     }
     
   }
+
+  
   //Date range as a button
-  $('#daterange-btn').daterangepicker(
-    {
-      format: "DD/MM/YYYY",
-      applyLabel: "Применить",
-      cancelLabel: "Отмена",
-      fromLabel: "От",
-      toLabel: "До",
-      customRangeLabel: "Пользовательский",
-      ranges: {
-        'Сегодгя': [moment(), moment()],
-        'Вчера': [moment().subtract('days', 1), moment().subtract('days', 1)],
-        'Последние 7 дней': [moment().subtract('days', 6), moment()],
-        'Последние 30 дней': [moment().subtract('days', 29), moment()],
-        'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
-        'Предыдущий месяц': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
-      },
-      startDate: moment().subtract('days', 29),
-      endDate: moment()
-    },
-    function (start, end) {
-      $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-    }
-  );
+  // $('#daterange-btn').daterangepicker(
+  //   {
+  //     format: "DD/MM/YYYY",
+  //     applyLabel: "Применить",
+  //     cancelLabel: "Отмена",
+  //     fromLabel: "От",
+  //     toLabel: "До",
+  //     customRangeLabel: "Пользовательский",
+  //     ranges: {
+  //       'Сегодгя': [moment(), moment()],
+  //       'Вчера': [moment().subtract('days', 1), moment().subtract('days', 1)],
+  //       'Последние 7 дней': [moment().subtract('days', 6), moment()],
+  //       'Последние 30 дней': [moment().subtract('days', 29), moment()],
+  //       'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
+  //       'Предыдущий месяц': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+  //     },
+  //     startDate: moment().subtract('days', 29),
+  //     endDate: moment()
+  //   },
+  //   function (start, end) {
+  //     $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+  //   }
+  // );
 
 })(jQuery, $.AdminLTE);

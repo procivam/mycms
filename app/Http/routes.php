@@ -34,7 +34,7 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'bac
 	// Index page
 	Route::get('', "IndexController@index");
 
-	// Link to controller
+	// Links to controller Pages
 	Route::get('pages', "PagesController@index");
 	Route::get('pages/create', "PagesController@create");
 	Route::post('pages/create', "PagesController@store");

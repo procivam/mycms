@@ -29,14 +29,14 @@ jQuery(document).ready(function(){
 	    scrollCollapse: true,
 	    stateSave: true,
 	    lengthMenu: [ [10, 25, 50, 75, 100, -1], [10, 25, 50, 75, 100, "All"] ],
-		"fnDrawCallback": function (o) {
+		  "fnDrawCallback": function (o) {
             if ( o._iDisplayStart != oldStart ) {
             	var targetOffset = $('#datatables').closest('.box-body').offset().top;
                 $('html,body').animate({scrollTop: targetOffset}, 500);
                 oldStart = o._iDisplayStart;
             }
         }
-	  });
+	    });
   	};
 
   	// CkEditor init
@@ -86,11 +86,65 @@ jQuery(document).ready(function(){
 	    	}
     	});
     };
-
+    // binding some form changes
     if ($('form[name="main_form"]').length) {
     	$("input, textarea").bind("keyup keydown keypress change blur", function() {
 	        $('form[name="main_form"]').attr('data-changed', true);
     	});
     };
 
+    $('#daterange-btn').click(function(event){
+      event.preventDefault();
+    });
+    //Date range as a button
+    $('#daterange-btn').daterangepicker({
+        locale: {
+          format: "DD/MM/YYYY",
+          separator: "-",
+          applyLabel: "Применить",
+          cancelLabel: "Отмена",
+          fromLabel: "От",
+          toLabel: "До",
+          customRangeLabel: "Пользовательский",
+          daysOfWeek: [
+              "Нд",
+              "Пн",
+              "Вт",
+              "Ср",
+              "Чт",
+              "Пт",
+              "Сб"
+          ],
+          monthNames: [
+              "Январь",
+              "Феврать",
+              "Март",
+              "Апрель",
+              "Май",
+              "Июнь",
+              "Июль",
+              "Август",
+              "Сентябрь",
+              "Октябрь",
+              "Ноябрь",
+              "Декабрь"
+          ],
+          firstDay: 1
+        },
+        ranges: {
+          'Сегодгя': [moment(), moment()],
+          'Вчера': [moment().subtract('days', 1), moment().subtract('days', 1)],
+          'Последние 7 дней': [moment().subtract('days', 6), moment()],
+          'Последние 30 дней': [moment().subtract('days', 29), moment()],
+          'Этот месяц': [moment().startOf('month'), moment().endOf('month')],
+          'Предыдущий месяц': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+        },
+        startDate: moment().subtract('days', 29),
+        endDate: moment()
+      },
+      function (start, end, label) {
+        $('input[name="daterange"]').val(start.format('DD_MM_YYYY') + '-' + end.format('DD_MM_YYYY'));
+        $('form[name="control_form"]').submit();
+      }
+    );
 });
