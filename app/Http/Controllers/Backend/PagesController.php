@@ -114,7 +114,7 @@ class PagesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource into storage.
      *
      * @return Response
      */
@@ -193,7 +193,7 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $page = Pages::where('id', $id)->get();
+        $page = Pages::find($id);
         $page->name        = $request->name;
         $page->alias       = $request->alias;
         $page->title       = $request->title;
