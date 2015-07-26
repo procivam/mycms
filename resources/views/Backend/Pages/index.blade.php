@@ -12,10 +12,10 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Alias</th>
-                <th>Status</th>
-                <th>Title</th>
+                <th>Название</th>
+                <th>Алиас</th>
+                <th>Статус</th>
+                <th>Заголовок (Title)</th>
               </tr>
             </thead>
             <tbody>
@@ -58,10 +58,10 @@
             <tfoot>
               <tr>
                 <th>ID</th>
-                <th>Name</th>
-                <th>Alias</th>
-                <th>Status</th>
-                <th>Title</th>
+                <th>Название</th>
+                <th>Алиас</th>
+                <th>Статус</th>
+                <th>Заголовок (Title)</th>
               </tr>
             </tfoot>
           </table>

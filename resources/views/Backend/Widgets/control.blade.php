@@ -26,7 +26,7 @@
 
 			@if(isset($date_range))
 				<input type="hidden" name="daterange">
-				<button class="btn btn-default pull-right" id="daterange-btn">
+				<button class="btn btn-default pull-right" id="daterange-btn" data-dates="{{{ isset($_GET['daterange']) ? $_GET['daterange'] : null }}}">
 					<i class="fa fa-calendar"></i> Период дат
 					<i class="fa fa-caret-down"></i>
 				</button>

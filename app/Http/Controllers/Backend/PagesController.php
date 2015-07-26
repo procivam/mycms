@@ -63,8 +63,17 @@ class PagesController extends Controller
      */
     public function index()
     {
-        // Show list with all items (Pages) with controll elements
-        $list = Pages::all();
+        // Filter daterange
+        if (trim(\Input::get('daterange')) !== '') {
+            list($start, $end) = explode('_', \Input::get('daterange'));
+            $list = Pages::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
+                        ->get();
+        }
+        else {
+            // Show list with all items (Pages) with controll elements
+            $list = Pages::all();
+        }
+
 
         /**
         * View make
