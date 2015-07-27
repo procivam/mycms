@@ -154,4 +154,16 @@ jQuery(document).ready(function(){
       //   $('#daterange-btn').data('daterangepicker').setEndDate(dates[1]);
       // };
     };
+
+
+    // Init smoke notifications if need
+    jQuery.getJSON('/backend/notifications', function(data) {
+      if (data.length) {
+        for (var i = 0; i < data.length; i++) {
+          // init Smoke notification
+          var oneNoty = data[i];
+          $.smkAlert(oneNoty);
+        };
+      };
+    });
 });

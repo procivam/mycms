@@ -42,6 +42,13 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'bac
 	Route::post('pages/edit/{id}', "PagesController@update")->where(['id' => '[0-9]+']);
 	Route::get('pages/destroy/{id}', "PagesController@destroy")->where(['id' => '[0-9]+']);
 
+	// Notifications for Smoke.js plugin
+	Route::get('notifications', function() {
+		$list = Session::get('notifications', []);
+		Session::forget('notifications');
+		return json_encode($list);
+	});
+
 });
 
 

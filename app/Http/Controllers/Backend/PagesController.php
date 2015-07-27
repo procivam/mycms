@@ -67,7 +67,7 @@ class PagesController extends Controller
         if (trim(\Input::get('daterange')) !== '') {
             list($start, $end) = explode('_', \Input::get('daterange'));
             $list = Pages::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
-                        ->get();
+                ->get();
         }
         else {
             // Show list with all items (Pages) with controll elements
@@ -143,8 +143,17 @@ class PagesController extends Controller
         $pages->keywords    = $request->keywords;
         $pages->description = $request->description;
         
-        $pages->save();
+        $res = $pages->save();
 
+        if ($res) {
+            $currNoty = [
+                'text' => 'Данные успешно сохранены',
+                'type' => 'success',
+            ];
+            $notifications = \Session::get('notifications');
+            $notifications[] = $currNoty;
+            \Session::flash('notifications', $notifications);
+        }
         // Redirect
         return $this->redirectTo($pages->id);
     }
@@ -178,7 +187,6 @@ class PagesController extends Controller
             'actionName'  => 'Редактирование страницы', 
             'save'        => true,
             'saveAndExit' => true,
-            'saveAndLook' => true,
             'close'       => true,
         ]);
         // render all wiev
@@ -212,7 +220,16 @@ class PagesController extends Controller
         $page->keywords    = $request->keywords;
         $page->description = $request->description;
         
-        $page->save();
+        $res = $page->save();
+        if ($res) {
+            $currNoty = [
+                'text' => 'Данные успешно обновлены',
+                'type' => 'success',
+            ];
+            $notifications = \Session::get('notifications');
+            $notifications[] = $currNoty;
+            \Session::set('notifications', $notifications);
+        }
 
         return $this->redirectTo($id);
     }
