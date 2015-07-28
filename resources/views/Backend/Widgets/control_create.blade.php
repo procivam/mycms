@@ -5,15 +5,15 @@
 		</div>
 		<div class="buttons">
 		    @if(isset($save))
-		    	<button type="button" name="action" value="save" class="btn btn-success">Сохранить</button>
+		    	<input type="submit" name="action" value="Сохранить" class="btn btn-success">
 			@endif
 			
 		    @if(isset($saveAndExit))
-		    	<button type="button" name="action" value="save and exit" class="btn bg-orange">Сохранить и выйти</button>
+		    	<input type="submit" name="action" value="Сохранить и выйти" class="btn bg-orange">
 			@endif
 
 			@if(isset($saveAndLook))
-		    	<button type="button" name="action" value="save and look" class="btn btn-info">охранить и просмотреть</button>
+		    	<input type="submit" name="action" value="Сохранить и просмотреть" class="btn btn-info">
 			@endif
 
 			@if(isset($close))		

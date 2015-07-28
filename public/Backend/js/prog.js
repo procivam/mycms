@@ -86,11 +86,24 @@ jQuery(document).ready(function(){
 	    	}
     	});
     };
-    // binding some form changes
+
+    // Events to main form
     if ($('form[name="main_form"]').length) {
+      var main_form = $('form[name="main_form"]');
+      // binding some form changes
     	$("input, textarea").bind("keyup keydown keypress change blur", function() {
-	        $('form[name="main_form"]').attr('data-changed', true);
+	        $(main_form).attr('data-changed', true);
     	});
+
+      // Form validate using somke plugin
+      $(main_form).on('click', 'button[name="action"]', function (event) {
+        if($(main_form).smkValidate({lang:'ru'}) ) {
+          $(main_form).submit();
+        }
+      });
+
+      // $(main_form).submit(function(event){
+      // });
     };
 
     if ($('#daterange-btn').length) {
@@ -171,4 +184,5 @@ jQuery(document).ready(function(){
     if ($('#slugify_source').length) {
       $('#slugify_target').slugify('#slugify_source');
     };
+
 });

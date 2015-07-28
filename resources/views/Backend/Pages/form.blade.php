@@ -29,15 +29,15 @@
 		                </div>
 	                    <div class="form-group">
 	                      <label>Название</label>
-	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" id="slugify_source" placeholder="Название страницы"/>
+	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" id="slugify_source" placeholder="Название страницы" minlength="1" maxlength="255" required/>
 	                    </div>
 	                    <div class="form-group">
 	                      <label>Алиас</label>
-	                      <input type="text" name="alias" value="{{ isset($obj) ? $obj->alias : "" }}" class="form-control" id="slugify_target" placeholder="Алиас страницы"/>
+	                      <input type="text" name="alias" value="{{ isset($obj) ? $obj->alias : "" }}" class="form-control" id="slugify_target" placeholder="Алиас страницы" minlength="1" maxlength="255" required/>
 	                    </div>
 	                    <div class="form-group">
 	                      <label>Содержание</label>
-	                      <textarea id="ckeditor" name="text" class="form-control" rows="10" placeholder="Содержание страницы">{{ isset($obj) ? $obj->text : "" }}</textarea>
+	                      <textarea id="ckeditor" name="text" class="form-control" rows="10" placeholder="Содержание страницы" required>{{ isset($obj) ? $obj->text : "" }}</textarea>
 	                    </div>
 					</div><!-- /.box-body -->
 				</div><!-- /.box -->
@@ -50,11 +50,11 @@
 					<div class="box-body">
 						<div class="form-group">
 	                        <label>H1</label>
-	                        <input type="text" name="h1" value="{{ isset($obj) ? $obj->h1 : "" }}" class="form-control" placeholder=""/>
+	                        <input type="text" name="h1" value="{{ isset($obj) ? $obj->h1 : "" }}" class="form-control" placeholder="" minlength="1" maxlength="255" required/>
 	                    </div>
 						<div class="form-group">
 	                        <label>Title (Заголовок)</label>
-	                        <input type="text" name="title" value="{{ isset($obj) ? $obj->title : "" }}" class="form-control" placeholder="Заголовок страницы"/>
+	                        <input type="text" name="title" value="{{ isset($obj) ? $obj->title : "" }}" class="form-control" placeholder="Заголовок страницы" minlength="1" maxlength="255" required/>
 	                    </div>
 	                    <div class="form-group">
 	                        <label>Keywords (Ключевые слова)</label>

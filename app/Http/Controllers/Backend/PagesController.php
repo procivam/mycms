@@ -42,13 +42,13 @@ class PagesController extends Controller
         $button = \Input::get('action');
         if (isset($button)) {
             switch ($button) {
-                case 'Сохранить':
+                case 'save':
                     $fullAction = app('request')->route()->getAction();
                     $controller = class_basename($fullAction['controller']);
                     $controller = str_replace('store', 'edit', $controller);
                     return redirect()->action('Backend\\'.$controller, [$id]);
                     break;
-                case 'Сохранить и просмотреть':
+                case 'save and look':
                     return redirect()->action('Backend\PagesController@edit', [$id]);
                     break;
             }
@@ -150,9 +150,7 @@ class PagesController extends Controller
                 'text' => 'Данные успешно сохранены',
                 'type' => 'success',
             ];
-            $notifications = \Session::get('notifications');
-            $notifications[] = $currNoty;
-            \Session::flash('notifications', $notifications);
+            addMessage($currNoty);
         }
         // Redirect
         return $this->redirectTo($pages->id);
@@ -227,9 +225,6 @@ class PagesController extends Controller
                 'type' => 'success',
             ];
             addMessage($currNoty);
-            // $notifications = \Session::get('notifications');
-            // $notifications[] = $currNoty;
-            // \Session::set('notifications', $notifications);
         }
 
         return $this->redirectTo($id);

@@ -2,7 +2,7 @@
     $.fn.smkValidate.Languaje = {
         ru: {
              // Mensaje de error para los input vacíos
-            textEmpty        : 'Заполните обязательное поле',
+            textEmpty        : 'Заполните это поле',
             // Mensaje de error para el input email
             textEmail        : 'Введите валидный email',
             // Mensaje de error para el input alphanumeric
