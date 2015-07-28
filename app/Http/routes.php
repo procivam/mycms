@@ -44,9 +44,7 @@ Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'bac
 
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
-		$list = Session::get('notifications', []);
-		Session::forget('notifications');
-		return json_encode($list);
+		return json_encode(getMessages());
 	});
 
 });

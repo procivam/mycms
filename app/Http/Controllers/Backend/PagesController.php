@@ -226,9 +226,10 @@ class PagesController extends Controller
                 'text' => 'Данные успешно обновлены',
                 'type' => 'success',
             ];
-            $notifications = \Session::get('notifications');
-            $notifications[] = $currNoty;
-            \Session::set('notifications', $notifications);
+            addMessage($currNoty);
+            // $notifications = \Session::get('notifications');
+            // $notifications[] = $currNoty;
+            // \Session::set('notifications', $notifications);
         }
 
         return $this->redirectTo($id);
