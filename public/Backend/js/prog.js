@@ -166,4 +166,9 @@ jQuery(document).ready(function(){
         };
       };
     });
+
+    // Slugify for url alias
+    if ($('#slugify_source').length) {
+      $('#slugify_target').slugify('#slugify_source');
+    };
 });

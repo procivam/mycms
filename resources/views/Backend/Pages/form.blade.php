@@ -29,11 +29,11 @@
 		                </div>
 	                    <div class="form-group">
 	                      <label>Название</label>
-	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" placeholder="Название страницы"/>
+	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" id="slugify_source" placeholder="Название страницы"/>
 	                    </div>
 	                    <div class="form-group">
 	                      <label>Алиас</label>
-	                      <input type="text" name="alias" value="{{ isset($obj) ? $obj->alias : "" }}" class="form-control" placeholder="Алиас страницы"/>
+	                      <input type="text" name="alias" value="{{ isset($obj) ? $obj->alias : "" }}" class="form-control" id="slugify_target" placeholder="Алиас страницы"/>
 	                    </div>
 	                    <div class="form-group">
 	                      <label>Содержание</label>
