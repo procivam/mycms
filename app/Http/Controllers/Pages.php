@@ -1,14 +1,13 @@
 <?php
 
-namespace laravel\Http\Controllers\Frontend;
+namespace laravel\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Frontend\Contact;
 
-class ContactController extends Controller
+class Pages extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,6 @@ class ContactController extends Controller
     public function index()
     {
         //
-        $messages = Contact::all();
-        return view('Frontend.contact', ['messages' => $messages]);
     }
 
     /**
@@ -84,17 +81,5 @@ class ContactController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-    *
-    * Get dont viewed messages for header notifier
-    *
-    * @return null
-    */
-    public function compose($view) 
-    {
-        $list_messages = Contact::where('displayed', 0)->get();
-        $view->with('list_messages', $list_messages);
     }
 }

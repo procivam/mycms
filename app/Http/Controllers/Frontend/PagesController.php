@@ -3,23 +3,23 @@
 namespace laravel\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use DB;
+
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Frontend\Contact;
+use laravel\Models\Frontend\Pages;
 
-class ContactController extends Controller
+class PagesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index($alias, $page = 1)
     {
-        //
-        $messages = Contact::all();
-        return view('Frontend.contact', ['messages' => $messages]);
+        // find content for alias
+        $page = Pages::where('alias', $alias)->firstOrFail();
+        dd($page);
     }
 
     /**
@@ -84,17 +84,5 @@ class ContactController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-    *
-    * Get dont viewed messages for header notifier
-    *
-    * @return null
-    */
-    public function compose($view) 
-    {
-        $list_messages = Contact::where('displayed', 0)->get();
-        $view->with('list_messages', $list_messages);
     }
 }

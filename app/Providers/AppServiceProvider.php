@@ -16,7 +16,9 @@ class AppServiceProvider extends ServiceProvider
         app('view')->composer('*', function($view)
         {
             $action = app('request')->route()->getAction();
-
+            if (isset($action['controller']) === false) {
+                return false;
+            }
             $controller = class_basename($action['controller']);
 
             list($controller, $action) = explode('@', $controller);

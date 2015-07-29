@@ -95,8 +95,7 @@ class PagesController extends Controller
 
         // render all view
         $content = view('Backend.Pages.index', [
-            'result' => $list, 
-            'moduleName' => $this->moduleName, 
+            'result' => $list,
             'controls' => $controls
         ]);
 

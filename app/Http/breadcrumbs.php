@@ -29,19 +29,3 @@ Breadcrumbs::register('backend.pages.edit', function($breadcrumbs)
     $breadcrumbs->parent('backend.pages');
     $breadcrumbs->push('Редактирование страницы', route('backend.pages.edit'));
 });
-
-
-
-// Главная > Blog
-Breadcrumbs::register('blog', function($breadcrumbs)
-{
-    $breadcrumbs->parent('home');
-    $breadcrumbs->push('Blog', route('blog'));
-});
-
-// Главная > Blog > [Category]
-Breadcrumbs::register('category', function($breadcrumbs, $category)
-{
-    $breadcrumbs->parent('blog');
-    $breadcrumbs->push($category->title, route('category', $category->id));
-});
