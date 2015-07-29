@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Frontend\Contact;
+use laravel\Contact;
 
 class ContactController extends Controller
 {
