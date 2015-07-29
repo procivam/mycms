@@ -148,6 +148,7 @@ return [
         Arrilot\Widgets\ServiceProvider::class,
         Menu\MenuServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
+        DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
     ],
 
     /*
@@ -197,8 +198,9 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'Widget'    => Arrilot\Widgets\Facade::class,
         'AsyncWidget' => Arrilot\Widgets\AsyncFacade::class,
-        'Menu' => Menu\Menu::class,
+        'Menu'      => Menu\Menu::class,
         'Setting'   => anlutro\LaravelSettings\Facade::class,
+        'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
 
     ],
 

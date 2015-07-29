@@ -31,6 +31,14 @@ class PagesController extends Controller
     ];
 
     /**
+    * Constructor
+    *
+    */
+    public function __construct() {
+        \Setting::set('controller_name', $this->moduleName);
+    }
+
+    /**
     * Function redirect to
     * Defines the actio after save or update actions
     *

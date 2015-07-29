@@ -10,7 +10,8 @@
         "nesbot/carbon": "~1.14",
         "arrilot/laravel-widgets": "^3.0",
         "vespakoen/menu": "3.*",
-        "anlutro/l4-settings": "^0.4.0"
+        "anlutro/l4-settings": "^0.4.0",
+        "davejamesmiller/laravel-breadcrumbs": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

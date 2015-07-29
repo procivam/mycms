@@ -30,17 +30,17 @@ Route::group(['namespace' => 'Frontend'], function() {
 });
 
 // Backend group
-Route::group(['namespace' => 'Backend', 'middleware' => 'auth', 'prefix' => 'backend'], function() {
+Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'auth', 'prefix' => 'backend'], function() {
 	// Index page
-	Route::get('', "IndexController@index");
+	Route::get('/', ['as' => 'home', 'uses' => "IndexController@index"]);
 
 	// Links to controller Pages
-	Route::get('pages', "PagesController@index");
-	Route::get('pages/create', "PagesController@create");
+	Route::get('pages', ['as' => 'pages', 'uses' => "PagesController@index"]);
+	Route::get('pages/create', ["as" => "pages.create", "uses" => "PagesController@create"]);
 	Route::post('pages/create', "PagesController@store");
-	Route::get('pages/edit/{id}', "PagesController@edit")->where(['id' => '[0-9]+']);
+	Route::get('pages/edit/{id}', ["as" => "pages.edit", "uses" => "PagesController@edit"])->where(['id' => '[0-9]+']);
 	Route::post('pages/edit/{id}', "PagesController@update")->where(['id' => '[0-9]+']);
-	Route::get('pages/destroy/{id}', "PagesController@destroy")->where(['id' => '[0-9]+']);
+	Route::get('pages/destroy/{id}', ["as" => "pages.destroy", "uses" => "PagesController@destroy"])->where(['id' => '[0-9]+']);
 
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
