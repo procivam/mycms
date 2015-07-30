@@ -52,6 +52,22 @@ jQuery(document).ready(function(){
       radioClass: 'iradio_minimal-blue'
     });
 
+    //Red color scheme for iCheck
+    $('input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-red',
+      radioClass: 'iradio_flat-red'
+    });
+    //Blue color scheme for iCheck
+    $('input[type="radio"].flat-blue').iCheck({
+      checkboxClass: 'icheckbox_flat-blue',
+      radioClass: 'iradio_flat-blue'
+    });
+    //Flat green color scheme for iCheck
+    $('input[type="radio"].flat-green').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass: 'iradio_flat-green'
+    });
+
     // Botstrap switch
     if ($('.switcher').length) {
     	$('.switcher').bootstrapSwitch({

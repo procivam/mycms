@@ -13,7 +13,7 @@
 		    </div>
 		@endif
 		<div class="row">
-			<div class="col-xs-7">
+			<div class="col-md-7">
 				<div class="box box-success">
 					<div class="box-header">
 						<h3 class="box-title">Основные данные</h3>
@@ -27,6 +27,27 @@
 		                    	<input name="status" type="checkbox" value="1" class="switcher" {{{ isset($obj) && $obj->status == 1 ? "checked" : "" }}}/>
 		                    </div>
 		                </div>
+		                
+		                	<label>Статус</label>
+		                <div class="radio">
+		                    <label>
+		                    	<input type="radio" name="state" value="1" class="flat-green" {{{ ((isset($obj) && $obj->state == 1) OR (isset($obj) == false)) ? "checked" : "" }}}/>
+		                    	Опубликован
+		                    </label>
+		                </div>
+		                <div class="radio">
+		                    <label>
+		                    	<input type="radio" name="state" value="2" class="flat-blue" {{{ isset($obj) && $obj->state == 2 ? "checked" : "" }}}/>
+								Черновик
+		                    </label>
+		                </div>
+		                <div class="radio">
+		                    <label>
+		                    	<input type="radio" name="state" value="0" class="flat-red" {{{ isset($obj) && $obj->state == 0 ? "checked" : "" }}}/>
+		                     	Скрыт
+		                    </label>
+		                </div>
+
 	                    <div class="form-group">
 	                      <label>Название</label>
 	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" id="slugify_source" placeholder="Название страницы" minlength="1" maxlength="255" required/>
@@ -42,7 +63,7 @@
 					</div><!-- /.box-body -->
 				</div><!-- /.box -->
 			</div>
-			<div class="col-xs-5">
+			<div class="col-md-5">
 				<div class="box box-primary">
 					<div class="box-header">
 						<h3 class="box-title">SEO информация</h3>

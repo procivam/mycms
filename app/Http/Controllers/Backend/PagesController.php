@@ -145,6 +145,7 @@ class PagesController extends Controller
         $pages->alias       = $request->alias;
         $pages->title       = $request->title;
         $pages->status      = $request->status ? $request->status : 0;
+        $pages->state       = $request->state;
         $pages->h1          = $request->h1;
         $pages->text        = $request->text;
         $pages->keywords    = $request->keywords;
@@ -220,6 +221,7 @@ class PagesController extends Controller
         $page->alias       = $request->alias;
         $page->title       = $request->title;
         $page->status      = $request->status ? $request->status : 0;
+        $page->state       = $request->state;
         $page->h1          = $request->h1;
         $page->text        = $request->text;
         $page->keywords    = $request->keywords;

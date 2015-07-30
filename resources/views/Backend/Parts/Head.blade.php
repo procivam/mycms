@@ -14,7 +14,7 @@
      folder instead of downloading all of them to reduce the load. -->
 <link href="/Backend/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 <!-- iCheck -->
-<link href="/Backend/plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+<link href="/Backend/plugins/iCheck/all.css" rel="stylesheet" type="text/css" />
 <!-- Morris chart -->
 <link href="/Backend/plugins/morris/morris.css" rel="stylesheet" type="text/css" />
 <!-- jvectormap -->
