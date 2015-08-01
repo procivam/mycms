@@ -23,6 +23,8 @@
 <link href="/Backend/plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
 <!-- Daterange picker -->
 <link href="/Backend/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<!-- Bootstrap datetimepicker -->
+<link href="/Backend/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
 <!-- DATA TABLES -->
 <link href="/Backend/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 <!-- Bootstrap switch -->

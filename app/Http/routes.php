@@ -42,6 +42,16 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	Route::post('pages/edit/{id}', "PagesController@update")->where(['id' => '[0-9]+']);
 	Route::get('pages/destroy/{id}', ["as" => "pages.destroy", "uses" => "PagesController@destroy"])->where(['id' => '[0-9]+']);
 
+	// Links to controller News
+	Route::get('news', ['as' => 'news', 'uses' => "NewsController@index"]);
+	Route::get('news/create', ["as" => "news.create", "uses" => "NewsController@create"]);
+	Route::post('news/create', "NewsController@store");
+	Route::get('news/edit/{id}', ["as" => "news.edit", "uses" => "NewsController@edit"])->where(['id' => '[0-9]+']);
+	Route::post('news/edit/{id}', "NewsController@update")->where(['id' => '[0-9]+']);
+	Route::get('news/destroy/{id}', ["as" => "news.destroy", "uses" => "NewsController@destroy"])->where(['id' => '[0-9]+']);
+
+
+
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
 		return json_encode(getMessages());

@@ -55,6 +55,13 @@
 <!-- Jquery slugify -->
 <script src="/Backend/plugins/slugify/speakingurl.js" type="text/javascript"></script>
 <script src="/Backend/plugins/slugify/slugify.min.js" type="text/javascript"></script>
+<!-- Bootstrap datetimepicker -->
+<script src="/Backend/plugins/bootstrap-datetimepicker/moment-with-locales.js" type="text/javascript"></script>
+<script src="/Backend/plugins/bootstrap-datetimepicker/collapse.js" type="text/javascript"></script>
+<script src="/Backend/plugins/bootstrap-datetimepicker/transition.js" type="text/javascript"></script>
+
+<script src="/Backend/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
+
 
 <!-- Programmer cripts -->
 <script src="/Backend/js/prog.js" type="text/javascript"></script>

@@ -2,34 +2,34 @@ jQuery(document).ready(function(){
 	// Init datatables plugin
   	if ($('#datatables').length) {
   	  var oldStart = 0;
-  	  $("#datatables").dataTable({
+  	  var table = $("#datatables").dataTable({
   	  	language: {
-	        processing:     "Загрузка...",
-	        search:         "Поиск&nbsp;:",
-	        lengthMenu:     "Показывать _MENU_ элементов",
-	        info:           "Показано с _START_ по _END_ из _TOTAL_ записей",
-	        infoEmpty:      "Показано с 0 по 0 из 0 записей",
-	        infoFiltered:   "(Всего отфильтовано _MAX_ элементов)",
-	        infoPostFix:    "",
-	        loadingRecords: "Загрузка записей...",
-	        zeroRecords:    "Записи отсутствуют",
-	        emptyTable:     "Данные отсутствуют",
-	        paginate: {
-	            first:      "Первая",
-	            previous:   "Предыдущая",
-	            next:       "Следующая",
-	            last:       "Последняя"
-	        },
-	        aria: {
-	            sortAscending:  ": сортировать по возрастанию",
-	            sortDescending: ": сортировать по убыванию"
-	        }
-	    },
-	    pageLength: 50,
-	    scrollCollapse: true,
-	    stateSave: true,
-	    lengthMenu: [ [10, 25, 50, 75, 100, -1], [10, 25, 50, 75, 100, "All"] ],
-		  "fnDrawCallback": function (o) {
+  	        processing:     "Загрузка...",
+  	        search:         "Поиск&nbsp;:",
+  	        lengthMenu:     "Показывать _MENU_ элементов",
+  	        info:           "Показано с _START_ по _END_ из _TOTAL_ записей",
+  	        infoEmpty:      "Показано с 0 по 0 из 0 записей",
+  	        infoFiltered:   "(Всего отфильтовано _MAX_ элементов)",
+  	        infoPostFix:    "",
+  	        loadingRecords: "Загрузка записей...",
+  	        zeroRecords:    "Записи отсутствуют",
+  	        emptyTable:     "Данные отсутствуют",
+  	        paginate: {
+  	            first:      "Первая",
+  	            previous:   "Предыдущая",
+  	            next:       "Следующая",
+  	            last:       "Последняя"
+  	        },
+  	        aria: {
+  	            sortAscending:  ": сортировать по возрастанию",
+  	            sortDescending: ": сортировать по убыванию"
+  	        }
+  	    },
+  	    pageLength: 50,
+  	    scrollCollapse: true,
+  	    stateSave: true,
+  	    lengthMenu: [ [10, 25, 50, 75, 100, -1], [10, 25, 50, 75, 100, "All"] ],
+  		  "fnDrawCallback": function (o) {
             if ( o._iDisplayStart != oldStart ) {
             	var targetOffset = $('#datatables').closest('.box-body').offset().top;
                 $('html,body').animate({scrollTop: targetOffset}, 500);
@@ -37,6 +37,10 @@ jQuery(document).ready(function(){
             }
         }
 	    });
+
+      if ($('#datatables').data('order') == 'no-order') {
+        // Код отключения сортировки или указания колонки для сортировки
+      };
   	};
 
   	// CkEditor init
@@ -107,7 +111,7 @@ jQuery(document).ready(function(){
     if ($('form[name="main_form"]').length) {
       var main_form = $('form[name="main_form"]');
       // binding some form changes
-    	$("input, textarea").bind("keyup keydown keypress change blur", function() {
+    	$("input, textarea").bind("keyup keydown keypress change", function() {
 	        $(main_form).attr('data-changed', true);
     	});
 
@@ -199,6 +203,14 @@ jQuery(document).ready(function(){
     // Slugify for url alias
     if ($('#slugify_source').length) {
       $('#slugify_target').slugify('#slugify_source');
+    };
+
+    // Date time picker
+    if ($('#datetimepicker').length) {
+      $('#datetimepicker').datetimepicker({
+        locale: 'ru',
+        format: 'YYYY-MM-DD HH:mm'
+      });
     };
 
 });
