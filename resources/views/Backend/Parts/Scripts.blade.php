@@ -42,7 +42,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/Backend/js/demo.js" type="text/javascript"></script>
 <!-- CK Editor -->
-<script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
+<script src="/Backend/plugins/ckeditor/ckeditor.js"></script>
 <!-- iCheck 1.0.1 -->
 <script src="/Backend/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
 <!-- Bootstrap switch -->

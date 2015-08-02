@@ -1,12 +1,20 @@
 /**
- * @license Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here.
-	// For the complete reference:
+	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
+
+	// CKFinder
+	config.filebrowserBrowseUrl = '/Backend/plugins/kcfinder/browse.php?opener=ckeditor&type=files';
+	config.filebrowserImageBrowseUrl = '/Backend/plugins/kcfinder/browse.php?opener=ckeditor&type=images';
+	config.filebrowserFlashBrowseUrl = '/Backend/plugins/kcfinder/browse.php?opener=ckeditor&type=flash';
+	config.filebrowserUploadUrl = '/Backend/plugins/kcfinder/upload.php?opener=ckeditor&type=files';
+	config.filebrowserImageUploadUrl = '/Backend/plugins/kcfinder/upload.php?opener=ckeditor&type=images';
+	config.filebrowserFlashUploadUrl = '/Backend/plugins/kcfinder/upload.php?opener=ckeditor&type=flash';
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
@@ -26,13 +34,18 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'about' }
 	];
 
-	// Remove some buttons, provided by the standard plugins, which we don't
-	// need to have in the Standard(s) toolbar.
+	// Disable SCAYT
+	config.scayt_autoStartup = false;
+	config.disableNativeSpellChecker = false;
+	config.removePlugins = 'scayt,contextmenu';
+
+	// Remove some buttons provided by the standard plugins, which are
+	// not needed in the Standard(s) toolbar.
 	config.removeButtons = 'Underline,Subscript,Superscript';
 
-	// Se the most common block elements.
+	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
 
-	// Make dialogs simpler.
+	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };

@@ -11,21 +11,6 @@
 |
 */
 
-/*
-|  Frontend group
-*/
-Route::group(['namespace' => 'Frontend', 'as' => 'frontend'], function() {
-	// Main page
-	Route::get('/', function () {
-
-	    return view('Frontend.welcome');
-	});
-	// Contact 
-	Route::get('contact', 'ContactController@index');
-
-	Route::get('{alias}', ['as' => 'pages', 'uses' => 'PagesController@index'])->where(['alias' => '[a-z0-9-]+']);
-	Route::get('{alias}/page/{page}', ['as' => 'pages', 'uses' => 'PagesController@index'])->where(['alias' => '[a-z0-9-]+', 'page' => '[0-9]+']);
-});
 
 /*
 | Backend group
@@ -59,6 +44,21 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 
 });
 
+/*
+|  Frontend group
+*/
+Route::group(['namespace' => 'Frontend', 'as' => 'frontend'], function() {
+	// Main page
+	Route::get('/', function () {
+
+	    return view('Frontend.welcome');
+	});
+	// Contact 
+	Route::get('contact', 'ContactController@index');
+
+	Route::get('{alias}', ['as' => 'pages', 'uses' => 'PagesController@index'])->where(['alias' => '[a-z0-9-]+']);
+	Route::get('{alias}/page/{page}', ['as' => 'pages', 'uses' => 'PagesController@index'])->where(['alias' => '[a-z0-9-]+', 'page' => '[0-9]+']);
+});
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');

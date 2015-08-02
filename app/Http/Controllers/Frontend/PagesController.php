@@ -19,6 +19,7 @@ class PagesController extends Controller
     {
         // find content for alias
         $page = Pages::where('alias', $alias)->firstOrFail();
+        return $page->text;
         dd($page);
     }
 
