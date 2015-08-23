@@ -3,13 +3,23 @@
 namespace laravel\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
-use DB;
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Frontend\Contact;
+use laravel\Models\Frontend\Contact as Model;
 
 class ContactController extends Controller
 {
+    /**
+     * rights for validation
+     * 
+     * @var array
+     * @access protected
+     */
+    protected $rights = [
+        'name' => 'required|max:255',
+        'email' => 'required|max:255',
+        'message' => 'required',
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +28,7 @@ class ContactController extends Controller
     public function index()
     {
         //
-        $messages = Contact::all();
+        $messages = Model::all();
         return view('Frontend.contact', ['messages' => $messages]);
     }
 
@@ -37,9 +47,28 @@ class ContactController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        //
+         // Validate incoming data
+        $this->validate($request, $this->rights);
+
+        $model = new Model;
+
+        $model->name       = $request->name;
+        $model->email       = $request->email;
+        $model->message  = $request->message;
+
+        $res = $model->save();
+
+        if ($res) {
+            $currNoty = [
+                'text' => 'Данные успешно сохранены',
+                'type' => 'success',
+            ];
+            addMessage($currNoty);
+            // Redirect
+            return redirect()->action('Frontend\ContactController@index');
+        }
     }
 
     /**
@@ -84,17 +113,5 @@ class ContactController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-    *
-    * Get dont viewed messages for header notifier
-    *
-    * @return null
-    */
-    public function compose($view) 
-    {
-        $list_messages = Contact::where('displayed', 0)->get();
-        $view->with('list_messages', $list_messages);
     }
 }

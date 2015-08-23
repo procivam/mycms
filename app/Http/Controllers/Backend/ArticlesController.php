@@ -6,16 +6,21 @@ use Illuminate\Http\Request;
 
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Backend\Pages;
+use laravel\Models\Backend\Articles as Model;
 
-class PagesController extends Controller
+class ArticlesController extends Controller
 {
     /**
     * Module name for view
     *
     * @access private
     */
-    private $moduleName = 'Страницы';
+    private $moduleName = 'Статьи';
+    /**
+     * base foolder for view
+     * @var string
+     */
+    private $viewFolder = 'Backend.Articles';
 
     /**
     * Validation rights
@@ -23,11 +28,11 @@ class PagesController extends Controller
     * @access private
     */
     private $rights = [
-        'name'    => 'required|max:255',
-        'alias'   => 'required|max:255',
-        'title'   => 'required|max:255',
-        'h1'      => 'required|max:255',
-        'text'    => 'required'
+        'name'       => 'required|max:255',
+        'alias'        => 'required|max:255',
+        'title'         => 'required|max:255',
+        'h1'           => 'required|max:255',
+        'text'         => 'required'
     ];
 
     /**
@@ -57,11 +62,11 @@ class PagesController extends Controller
                     return redirect()->action('Backend\\'.$controller, [$id]);
                     break;
                 case 'save and look':
-                    return redirect()->action('Backend\PagesController@edit', [$id]);
+                    return redirect()->action('Backend\ArticlesController@edit', [$id]);
                     break;
             }
         }
-        return redirect()->action('Backend\PagesController@index');
+        return redirect()->action('Backend\ArticlesController@index');
     }
 
     /**
@@ -74,12 +79,12 @@ class PagesController extends Controller
         // Filter daterange
         if (trim(\Input::get('daterange')) !== '') {
             list($start, $end) = explode('_', \Input::get('daterange'));
-            $list = Pages::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
+            $list = Model::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
                 ->get();
         }
         else {
-            // Show list with all items (Pages) with controll elements
-            $list = Pages::all();
+            // Show list with all items with controll elements
+            $list = Model::orderBy('created_at', 'DESC')->get();
         }
 
 
@@ -94,7 +99,7 @@ class PagesController extends Controller
         ]);
 
         // render all view
-        $content = view('Backend.Pages.index', [
+        $content = view($this->viewFolder.'.index', [
             'result' => $list,
             'controls' => $controls
         ]);
@@ -114,7 +119,7 @@ class PagesController extends Controller
         */
         // make controlls row
         $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Создание страницы', 
+            'actionName'  => 'Создание новости', 
             'save'        => true,
             'saveAndExit' => true,
             'saveAndLook' => true,
@@ -122,7 +127,7 @@ class PagesController extends Controller
         ]);
 
         // render all wiev
-        $content = view('Backend.Pages.form', [ 
+        $content = view($this->viewFolder.'.form', [ 
             'controls' => $controls,
         ]);
 
@@ -139,19 +144,19 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $pages = new Pages;
+        $model = new Model;
 
-        $pages->name        = $request->name;
-        $pages->alias       = $request->alias;
-        $pages->title       = $request->title;
-        $pages->status      = $request->status ? $request->status : 0;
-        $pages->state       = $request->state;
-        $pages->h1          = $request->h1;
-        $pages->text        = $request->text;
-        $pages->keywords    = $request->keywords;
-        $pages->description = $request->description;
+        $model->name        = $request->name;
+        $model->alias       = $request->alias;
+        $model->title       = $request->title;
+        $model->status      = $request->status ? $request->status : 0;
+        $model->state       = $request->state;
+        $model->h1          = $request->h1;
+        $model->text        = $request->text;
+        $model->keywords    = $request->keywords;
+        $model->description = $request->description;
         
-        $res = $pages->save();
+        $res = $model->save();
 
         if ($res) {
             $currNoty = [
@@ -161,7 +166,7 @@ class PagesController extends Controller
             addMessage($currNoty);
         }
         // Redirect
-        return $this->redirectTo($pages->id);
+        return $this->redirectTo($model->id);
     }
 
     /**
@@ -184,19 +189,19 @@ class PagesController extends Controller
     public function edit($id)
     {
         //
-        $obj = Pages::find($id);
+        $obj = Model::find($id);
         /**
         * View
         */
         // make controlls row
         $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Редактирование страницы', 
+            'actionName'  => 'Редактирование новости', 
             'save'        => true,
             'saveAndExit' => true,
             'close'       => true,
         ]);
         // render all wiev
-        $content = view('Backend.Pages.form', [
+        $content = view($this->viewFolder.'.form', [
             'obj' => $obj,
             'controls' => $controls,
         ]);
@@ -216,18 +221,18 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $page = Pages::find($id);
-        $page->name        = $request->name;
-        $page->alias       = $request->alias;
-        $page->title       = $request->title;
-        $page->status      = $request->status ? $request->status : 0;
-        $page->state       = $request->state;
-        $page->h1          = $request->h1;
-        $page->text        = $request->text;
-        $page->keywords    = $request->keywords;
-        $page->description = $request->description;
+        $model = Model::find($id);
+        $model->name        = $request->name;
+        $model->alias       = $request->alias;
+        $model->title       = $request->title;
+        $model->status      = $request->status ? $request->status : 0;
+        $model->state       = $request->state;
+        $model->h1          = $request->h1;
+        $model->text        = $request->text;
+        $model->keywords    = $request->keywords;
+        $model->description = $request->description;
         
-        $res = $page->save();
+        $res = $model->save();
         if ($res) {
             $currNoty = [
                 'text' => 'Данные успешно обновлены',
@@ -247,9 +252,9 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-        // remove page
-        Pages::find($id)->delete();
+        // remove resource
+        Model::find($id)->delete();
 
-        return redirect()->action('Backend\PagesController@index');
+        return redirect()->action('Backend\ArticlesController@index');
     }
 }

@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Disable SCAYT
 	config.scayt_autoStartup = false;
 	config.disableNativeSpellChecker = false;
-	config.removePlugins = 'scayt,contextmenu';
+	config.removePlugins = 'scayt';
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.

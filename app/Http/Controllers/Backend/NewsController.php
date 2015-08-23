@@ -48,7 +48,7 @@ class NewsController extends Controller
     */
     private function redirectTo($id = null)
     {
-        $button = \Input::get('action');
+        $button = \Input::get('button_action');
         if (isset($button)) {
             switch ($button) {
                 case 'save':

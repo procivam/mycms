@@ -25,6 +25,7 @@ jQuery(document).ready(function(){
   	            sortDescending: ": сортировать по убыванию"
   	        }
   	    },
+        ordering: false,
   	    pageLength: 50,
   	    scrollCollapse: true,
   	    stateSave: true,
@@ -40,6 +41,8 @@ jQuery(document).ready(function(){
 
       if ($('#datatables').data('order') == 'no-order') {
         // Код отключения сортировки или указания колонки для сортировки
+        alert(23);
+        table.dataTable.aoColumns = [ { sWidth: "45%" }, { sWidth: "45%" }, { sWidth: "10%", bSearchable: false, bSortable: false } ];
       };
   	};
 
@@ -74,11 +77,21 @@ jQuery(document).ready(function(){
 
     // Botstrap switch
     if ($('.switcher').length) {
-    	$('.switcher').bootstrapSwitch({
+      $('.switcher').bootstrapSwitch({
+        size: "small",
+        inverse: true,
+        onText: "Включено",
+        offText: "Выключено"
+      });
+    };
+
+    // Botstrap switch yes | no
+    if ($('.switcherBoolean').length) {
+    	$('.switcherBoolean').bootstrapSwitch({
     		size: "small",
     		inverse: true,
-    		onText: "Включено",
-    		offText: "Выключено"
+    		onText: "Да",
+    		offText: "Нет"
     	});
     };
 
@@ -117,6 +130,11 @@ jQuery(document).ready(function(){
 
       // Form validate using somke plugin
       $(main_form).on('click', 'button[name="action"]', function (event) {
+        $("input[name='button_action']").val($(this).val());
+        // Disable validation
+        if ($(main_form).data('valid') == false) {
+          $(main_form).submit();
+        };
         if($(main_form).smkValidate({lang:'ru'}) ) {
           $(main_form).submit();
         }

@@ -52,3 +52,42 @@ Breadcrumbs::register('backend.news.edit', function($breadcrumbs)
     $breadcrumbs->parent('backend.news');
     $breadcrumbs->push('Редактирование новости', route('backend.news.edit'));
 });
+
+/**
+* Статьи
+*/
+// Главная > Статьи
+Breadcrumbs::register('backend.articles', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.home');
+    $breadcrumbs->push('Статьи', route('backend.articles'));
+});
+// Главная > Статьи > Создать страницу
+Breadcrumbs::register('backend.articles.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.articles');
+    $breadcrumbs->push('Создание новости', route('backend.articles.create'));
+});
+// Главная > Статьи > Редактировать страницу
+Breadcrumbs::register('backend.articles.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.articles');
+    $breadcrumbs->push('Редактирование статьи', route('backend.articles.edit'));
+});
+
+
+/**
+* Контакты
+*/
+// Главная > Контакты
+Breadcrumbs::register('backend.contact', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.home');
+    $breadcrumbs->push('Контакты', route('backend.contact'));
+});
+// Главная > Контакты > Редактировать форму
+Breadcrumbs::register('backend.contact.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.contact');
+    $breadcrumbs->push('Редактирование формы', route('backend.contact.edit'));
+});
