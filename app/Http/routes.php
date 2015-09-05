@@ -61,6 +61,23 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	// Update status for element
 	Route::post('updateStatus', ['as' => 'updateStatus', 'uses' => 'PostController@updateStatus']);
 
+	// Example
+	// usage inside a laravel route
+	Route::get('image', function()
+	{
+	    $img = Image::make(base_path().'/public/Frontend/images/image.jpg');
+
+	    $img->text($_SERVER['HTTP_HOST'], $img->width() - 100, $img->height() - 30, function($font) {
+		    $font->file(base_path().'/public/Frontend/fonts/pfagorasanspro-bold.ttf');
+		    $font->size(24);
+		    $font->color('#888');
+		    $font->valign('bottom');
+		    $font->align('left');
+		});
+
+	    return $img->response('jpg');
+	});
+
 });
 
 /*

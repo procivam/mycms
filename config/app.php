@@ -149,6 +149,7 @@ return [
         Menu\MenuServiceProvider::class,
         anlutro\LaravelSettings\ServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -201,6 +202,7 @@ return [
         'Menu'      => Menu\Menu::class,
         'Setting'   => anlutro\LaravelSettings\Facade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
 
     ],
 
