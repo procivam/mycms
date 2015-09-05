@@ -221,6 +221,8 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
+        $image = $this->saveCover($request, $id);
+
         $page = Pages::find($id);
         $page->name        = $request->name;
         $page->alias       = $request->alias;
@@ -232,7 +234,12 @@ class PagesController extends Controller
         $page->keywords    = $request->keywords;
         $page->description = $request->description;
         
+        if ($image !== false) {
+            $page->image = $image;
+        }
         $res = $page->save();
+        
+
         if ($res) {
             $currNoty = [
                 'text' => 'Данные успешно обновлены',
@@ -264,5 +271,48 @@ class PagesController extends Controller
         }
 
         return redirect()->action('Backend\PagesController@index');
+    }
+
+    /**
+     * Remove image.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroyImage($id)
+    {
+        $page = Pages::findOrFail($id);
+
+        if ($page->image) {
+            // Remove file
+            unlink(media_path().'images/pages/small/'.$page->image);
+            // Remove filename from DB
+            $page->image = null;
+            $page->save();
+
+            $currNoty = [
+                'text' => 'Изображение успешно удалены',
+                'type' => 'success',
+            ];
+            addMessage($currNoty);
+        }
+
+        return redirect()->action('Backend\PagesController@edit', [$id]);
+    }
+
+    private function saveCover(Request $request, $id, $filename = 'cover')
+    {
+        if (!$request->hasFile($filename)) {
+            return false;
+        }
+
+        $width = 200;
+        $height = 200;
+        $name = sha1_file($request->file($filename)).'.'.$request->file($filename)->getClientOriginalExtension();
+
+        $img = \Image::make($request->file($filename));
+        $img->fit($width, $height);
+        $img->save(media_path().'images/pages/small/'.$name);
+        return $name;
     }
 }

@@ -47,7 +47,18 @@
 		                     	Скрыт
 		                    </label>
 		                </div>
-
+						<div class="form-group">
+						    <label for="inuput_file">Обложка</label>
+						    @if (is_file(media_path().'images/pages/small/'.$obj->image))
+						    	<div>
+						    		<a href="{{ url('backend/'.$controller.'/destroyImage/'.$obj->id) }}">Удалить</a><br>
+						    		<img src="{{ '/Frontend/images/pages/small/'.$obj->image }}">
+						    	</div>
+						    @else
+							    <input type="file" id="inuput_file" name="cover">
+							    <p class="help-block">Выберите изображение для обложки</p>
+						    @endif
+						</div>
 	                    <div class="form-group">
 	                      <label>Название</label>
 	                      <input type="text" name="name" value="{{ isset($obj) ? $obj->name : "" }}" class="form-control" id="slugify_source" placeholder="Название страницы" minlength="1" maxlength="255" required/>
@@ -56,6 +67,7 @@
 	                      <label>Алиас</label>
 	                      <input type="text" name="alias" value="{{ isset($obj) ? $obj->alias : "" }}" class="form-control" id="slugify_target" placeholder="Алиас страницы" minlength="1" maxlength="255" required/>
 	                    </div>
+
 	                    <div class="form-group">
 	                      <label>Содержание</label>
 	                      <textarea id="ckeditor" name="text" class="form-control" rows="10" placeholder="Содержание страницы" required>{{ isset($obj) ? $obj->text : "" }}</textarea>

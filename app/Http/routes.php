@@ -26,6 +26,7 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	Route::get('pages/edit/{id}',    ["as" => "pages.edit", "uses" => "PagesController@edit"])->where(['id' => '[0-9]+']);
 	Route::post('pages/edit/{id}',   "PagesController@update")->where(['id' => '[0-9]+']);
 	Route::get('pages/destroy/{id}', ["as" => "pages.destroy", "uses" => "PagesController@destroy"])->where(['id' => '[0-9]+']);
+	Route::get('pages/destroyImage/{id}', ["as" => "pages.destroyImage", "uses" => "PagesController@destroyImage"])->where(['id' => '[0-9]+']);
 
 	// Links to controller News
 	Route::get('news',              ['as' => 'news', 'uses' => "NewsController@index"]);

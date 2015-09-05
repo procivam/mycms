@@ -38,3 +38,13 @@
 		}
 		return $list;
 	}
+
+	/**
+	 * Return path to media folders
+	 * 
+	 * @return string
+	 */
+	function media_path ()
+	{
+		return base_path('public/Frontend/');
+	}
