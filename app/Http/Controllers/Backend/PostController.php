@@ -38,16 +38,35 @@ class PostController extends Controller
                 WHERE id = {$value->id}");
 
             if (property_exists($value, 'children')) {
-                $listIds = array_map(function($array){ return $array->id; }, $value->children);
-                // Set parent_id
-                DB::update("UPDATE $table
-                    SET parent_id = {$value->id}
-                    WHERE id IN (".implode(',', $listIds).")"); 
                 $this->saveRank($table, $value->children, $value->id);
             }
         }
     }
 
+    /**
+     * Update status for element in custom table
+     * 
+     * @param  Request $request
+     * @return json    $answer
+     */
+    public function updateStatus(Request $request)
+    {
+        $table = $request->input('table');
+        $id = $request->input('id');
+        $status = $request->input('status') == 'true' ? 1 : 0;
+
+        if (!$table OR !$id) {
+            return $this->makeJson(['text' => 'Данные не получены', 'type' => 'warning'], true);
+        }
+
+        $res = DB::update("UPDATE $table
+            SET status = $status
+            WHERE id = $id");
+        if ($res) {
+            return $this->makeJson(['text' => 'Статус обновлен', 'type' => 'success', 'time' => 2], true);
+        }
+        return $this->makeJson(['text' => 'Ошибка обновления статуса', 'type' => 'warning', 'time' => 2], true);
+    }
 
     /**
      * Create JSON object from Array $data and return.

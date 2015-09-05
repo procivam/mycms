@@ -58,6 +58,8 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 
 	// Update sorting in DB
 	Route::post('updateSort', ['as' => 'updateSort', 'uses' => 'PostController@updateSort']);
+	// Update status for element
+	Route::post('updateStatus', ['as' => 'updateStatus', 'uses' => 'PostController@updateStatus']);
 
 });
 

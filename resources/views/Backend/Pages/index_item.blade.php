@@ -9,7 +9,7 @@
     				<a href="{{ url('backend/'.$controller.'/edit/'.$item->id) }}" alt="Изменить">{{ $item->name }}</a>
     			</td>
     			<td class="checkStatus">
-    				<input type="checkbox" {{ $item->status ? 'checked' : '' }}>
+    				<input type="checkbox" class="listStatus" {{ $item->status ? 'checked' : '' }}>
     			</td>
     			<td class="controlDropdown">
     				<a href="{{ url('backend/'.$controller.'/destroy/'.$item->id) }}">удалить</a>

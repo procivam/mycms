@@ -274,4 +274,32 @@ jQuery(document).ready(function(){
 
         };
 
+        /**
+         * Change status for element in list
+         */
+        if ($('.listStatus').length) {
+            $('.listStatus').on('ifChanged', function(event) {
+
+                var status = $(this).prop('checked'),
+                    table = $(this).closest('[data-table]').attr('data-table'),
+                    id = $(this).closest('[data-id]').attr('data-id');
+                if (!table || !id) {
+                    return false;
+                };
+
+                $.post(
+                    '/backend/updateStatus',
+                    {
+                        status: status,
+                        table: table,
+                        id: id,
+                    },
+                    function(data){
+                        if (data.smoke == true) {
+                            $.smkAlert(data);
+                        };
+                    }
+                    ,'json');
+            });
+        };
 });
