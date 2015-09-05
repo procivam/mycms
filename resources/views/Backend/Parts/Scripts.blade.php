@@ -61,6 +61,8 @@
 <script src="/Backend/plugins/bootstrap-datetimepicker/transition.js" type="text/javascript"></script>
 
 <script src="/Backend/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<!-- Nestable plugin -->
+<script src="/Backend/plugins/nestable/jquery.nestable.js" type="text/javascript"></script>
 
 
 <!-- Programmer cripts -->

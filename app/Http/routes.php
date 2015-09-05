@@ -56,6 +56,9 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 		return json_encode(getMessages());
 	});
 
+	// Update sorting in DB
+	Route::post('updateSort', ['as' => 'updateSort', 'uses' => 'PostController@updateSort']);
+
 });
 
 /*

@@ -33,6 +33,8 @@
 <link rel="stylesheet" type="text/css" href="/Backend/plugins/tagsinput/bootstrap-tagsinput.css">
 <!-- jQuery smoke -->
 <link rel="stylesheet" type="text/css" href="/Backend/plugins/smoke/smoke.min.css">
+<!-- Nestable plugin -->
+<link rel="stylesheet" type="text/css" href="/Backend/plugins/nestable/nestable.css">
 
 
 <!-- bootstrap wysihtml5 - text editor -->

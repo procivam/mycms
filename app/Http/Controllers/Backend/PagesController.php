@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
 use laravel\Models\Backend\Pages;
+use RecursiveArrayIterator;
 
 class PagesController extends Controller
 {
@@ -75,13 +76,17 @@ class PagesController extends Controller
         if (trim(\Input::get('daterange')) !== '') {
             list($start, $end) = explode('_', \Input::get('daterange'));
             $list = Pages::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
+                ->orderBy('sort')
                 ->get();
         }
         else {
             // Show list with all items (Pages) with controll elements
-            $list = Pages::all();
+            $list = Pages::orderBy('sort')->get();
         }
-
+        $result = [];
+        foreach ($list as $key => $item) {
+            $result[$item->parent_id][] = $item;
+        }
 
         /**
         * View make
@@ -95,7 +100,7 @@ class PagesController extends Controller
 
         // render all view
         $content = view('Backend.Pages.index', [
-            'result' => $list,
+            'result' => $result,
             'controls' => $controls
         ]);
 
@@ -248,7 +253,15 @@ class PagesController extends Controller
     public function destroy($id)
     {
         // remove page
-        Pages::find($id)->delete();
+        $res = Pages::find($id)->delete();
+
+        if ($res) {
+            $currNoty = [
+                'text' => 'Данные успешно удалены',
+                'type' => 'success',
+            ];
+            addMessage($currNoty);
+        }
 
         return redirect()->action('Backend\PagesController@index');
     }

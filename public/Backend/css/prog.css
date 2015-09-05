@@ -31,5 +31,11 @@
 }
 .buttons {
 	float: right;
-	
+}
+
+td.checkStatus {
+	padding: 0 15px;
+}
+td.controlDropdown {
+	padding: 0 15px;
 }
