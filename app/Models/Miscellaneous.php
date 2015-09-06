@@ -39,16 +39,27 @@ class Miscellaneous
             }
         }
 
+        $file = $request->file($imageName);
+
+        if ($file->isValid() !== true) {
+            throw new Exception(sprintf('The file "%s" has errors.',
+                $file->getClientOriginalName()));
+        }
+
+        if ($file->getClientSize() > $file->getMaxFilesize()) {
+            throw new Exception(sprintf('File "%s" exceeds the permitted size 
+                allowed "upload_max_filesize" in php.ini',
+                $file->getClientOriginalName()));
+        }
+        
         if (array_key_exists('path', $data) == false
             OR array_key_exists($data['path'], config('image.path')) == false) {
             throw new Exception('Group name not given. Or has not been declared');
         }
         
-        $file = $request->file($imageName);
-
         $ext = $file->getClientOriginalExtension();
         if (in_array($ext, config('image.extensions.'.config('image.driver'))) == false) {
-            throw new Exception(sprintf('Given extension "%s" not supported.', $ext));
+            throw new Exception(sprintf('Given extension "%s" not allowed.', $ext));
         }
         $name = sha1_file($file);
         $name = sha1($name.microtime()).'.'.$ext;
