@@ -52,10 +52,12 @@
 						    @if (is_file(media_path().'images/pages/small/'.$obj->image))
 						    	<div>
 						    		<a href="{{ url('backend/'.$controller.'/destroyImage/'.$obj->id) }}">Удалить</a><br>
-						    		<img src="{{ '/Frontend/images/pages/small/'.$obj->image }}">
+						    		<a href="{{ '/Frontend/images/pages/original/'.$obj->image }}" target="blank">
+						    			<img src="{{ '/Frontend/images/pages/small/'.$obj->image }}">
+						    		</a>
 						    	</div>
 						    @else
-							    <input type="file" id="inuput_file" name="cover">
+							    <input type="file" id="inuput_file" name="image">
 							    <p class="help-block">Выберите изображение для обложки</p>
 						    @endif
 						</div>

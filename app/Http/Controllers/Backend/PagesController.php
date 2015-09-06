@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
 use laravel\Models\Backend\Pages;
-use RecursiveArrayIterator;
+use laravel\Models\Miscellaneous;
 
 class PagesController extends Controller
 {
@@ -220,8 +220,11 @@ class PagesController extends Controller
     {
         // Validate incoming data
         $this->validate($request, $this->rights);
-
-        $image = $this->saveCover($request, $id);
+        try {
+            $image = Miscellaneous::uploadImage($request, ['path' => 'pages']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
 
         $page = Pages::find($id);
         $page->name        = $request->name;
@@ -284,35 +287,19 @@ class PagesController extends Controller
         $page = Pages::findOrFail($id);
 
         if ($page->image) {
-            // Remove file
-            unlink(media_path().'images/pages/small/'.$page->image);
-            // Remove filename from DB
+            
+            $res = Miscellaneous::removeImages('pages', $page->image);
+            
             $page->image = null;
             $page->save();
 
             $currNoty = [
-                'text' => 'Изображение успешно удалены',
+                'text' => 'Изображения успешно удалены',
                 'type' => 'success',
             ];
             addMessage($currNoty);
         }
 
         return redirect()->action('Backend\PagesController@edit', [$id]);
-    }
-
-    private function saveCover(Request $request, $id, $filename = 'cover')
-    {
-        if (!$request->hasFile($filename)) {
-            return false;
-        }
-
-        $width = 200;
-        $height = 200;
-        $name = sha1_file($request->file($filename)).'.'.$request->file($filename)->getClientOriginalExtension();
-
-        $img = \Image::make($request->file($filename));
-        $img->fit($width, $height);
-        $img->save(media_path().'images/pages/small/'.$name);
-        return $name;
     }
 }
