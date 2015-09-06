@@ -49,7 +49,7 @@
 		                </div>
 						<div class="form-group">
 						    <label for="inuput_file">Обложка</label>
-						    @if (is_file(media_path().'images/pages/small/'.$obj->image))
+						    @if (isset($obj)  && is_file(media_path().'images/pages/small/'.$obj->image))
 						    	<div>
 						    		<a href="{{ url('backend/'.$controller.'/destroyImage/'.$obj->id) }}">Удалить</a><br>
 						    		<a href="{{ '/Frontend/images/pages/original/'.$obj->image }}" target="blank">

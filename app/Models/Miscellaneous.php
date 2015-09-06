@@ -29,6 +29,14 @@ class Miscellaneous
             throw new Exception('Name for input element not set');
         }
 
+        $file = $request->file($imageName);
+        
+        if ($file->isValid() !== true) {
+            throw new Exception(sprintf('Input file has error: #%d "%s".',
+                $file->getError(),
+                $file->getErrorMessage()));
+        }
+        
         if ($request->hasFile($imageName) == false) {
             if (array_key_exists('error_no_file', $data)
                 AND $data['error_no_file'] == true) {
@@ -39,19 +47,6 @@ class Miscellaneous
             }
         }
 
-        $file = $request->file($imageName);
-
-        if ($file->isValid() !== true) {
-            throw new Exception(sprintf('The file "%s" has errors.',
-                $file->getClientOriginalName()));
-        }
-
-        if ($file->getClientSize() > $file->getMaxFilesize()) {
-            throw new Exception(sprintf('File "%s" exceeds the permitted size 
-                allowed "upload_max_filesize" in php.ini',
-                $file->getClientOriginalName()));
-        }
-        
         if (array_key_exists('path', $data) == false
             OR array_key_exists($data['path'], config('image.path')) == false) {
             throw new Exception('Group name not given. Or has not been declared');

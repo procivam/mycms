@@ -156,6 +156,15 @@ class PagesController extends Controller
         $pages->keywords    = $request->keywords;
         $pages->description = $request->description;
         
+        try {
+            $image = Miscellaneous::uploadImage($request, ['path' => 'pages']);
+        } catch (\Exception $e) {
+            addMessage(['text' => $e->getMessage(), 'type' => 'danger', 'time' => 10]);
+        }
+        if ($image !== false) {
+            $pages->image = $image;
+        }
+
         $res = $pages->save();
 
         if ($res) {
@@ -167,17 +176,6 @@ class PagesController extends Controller
         }
         // Redirect
         return $this->redirectTo($pages->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -223,7 +221,7 @@ class PagesController extends Controller
         try {
             $image = Miscellaneous::uploadImage($request, ['path' => 'pages']);
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            addMessage(['text' => $e->getMessage(), 'type' => 'danger', 'time' => 10]);
         }
 
         $page = Pages::find($id);
@@ -237,7 +235,7 @@ class PagesController extends Controller
         $page->keywords    = $request->keywords;
         $page->description = $request->description;
         
-        if ($image !== false) {
+        if (isset($image) && $image !== false) {
             $page->image = $image;
         }
         $res = $page->save();
