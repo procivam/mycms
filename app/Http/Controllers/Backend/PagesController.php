@@ -95,7 +95,6 @@ class PagesController extends Controller
         // make controlls row
         $controls = view('Backend.Widgets.control', [
             'createLong' => true,
-            'date_range' => true
         ]);
 
         // render all view

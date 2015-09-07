@@ -25,7 +25,6 @@ jQuery(document).ready(function(){
                                 sortDescending: ": сортировать по убыванию"
                         }
                 },
-                ordering: false,
                 pageLength: 50,
                 scrollCollapse: true,
                 stateSave: true,
@@ -38,19 +37,13 @@ jQuery(document).ready(function(){
                         }
                 }
             });
-
-            if ($('#datatables').data('order') == 'no-order') {
-                // Код отключения сортировки или указания колонки для сортировки
-                alert(23);
-                table.dataTable.aoColumns = [ { sWidth: "45%" }, { sWidth: "45%" }, { sWidth: "10%", bSearchable: false, bSortable: false } ];
-            };
         };
 
         // CkEditor init
         if ($('#ckeditor').length) {
             // Replace the <textarea id="ckeditor"> with a CKEditor
-                // instance, using default configuration.
-                CKEDITOR.replace('ckeditor');
+            // instance, using default configuration.
+            CKEDITOR.replace('ckeditor');
         };
 
         //iCheck for checkbox and radio inputs
