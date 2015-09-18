@@ -227,6 +227,7 @@
       AdminLTE.controlSidebar._fixForFixed($('.control-sidebar'));
       AdminLTE.layout.activate();
     }
+    store('layout', cls);
   }
 
   /**
@@ -283,6 +284,10 @@
     if (tmp && $.inArray(tmp, my_skins))
       change_skin(tmp);
 
+    // var lay = get('layout');
+    // if (lay) 
+      // change_layout(lay);
+
     //Add the change skin listener
     $("[data-skin]").on('click', function (e) {
       e.preventDefault();
@@ -290,7 +295,7 @@
     });
 
     //Add the layout manager
-    $("[data-layout]").on('click', function () {
+    $("[data-layout]").on('ifChanged', function () {
       change_layout($(this).data('layout'));
     });
 

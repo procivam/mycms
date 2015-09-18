@@ -36,7 +36,6 @@
 <!-- Nestable plugin -->
 <link rel="stylesheet" type="text/css" href="/Backend/plugins/nestable/nestable.css">
 
-
 <!-- bootstrap wysihtml5 - text editor -->
 <link href="/Backend/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
 

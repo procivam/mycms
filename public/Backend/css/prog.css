@@ -39,3 +39,7 @@ td.checkStatus {
 td.controlDropdown {
 	padding: 0 15px;
 }
+
+.daterangepicker .ranges {
+    width: 164px !important;
+}

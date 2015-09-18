@@ -29,11 +29,9 @@ class LeftSide extends AbstractWidget
             $menu[$value->parent_id][] = $value;
         }
 
-        $menuTpl = view('Backend.Widgets.menu', ['menu' => $menu]);
-
         return view("Backend.Widgets.left_side", [
             'user' => \Auth::user(),
-            'menu' => $menuTpl,
+            'menu' => $menu,
         ]);
     }
 }

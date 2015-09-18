@@ -31,12 +31,6 @@ class Miscellaneous
 
         $file = $request->file($imageName);
         
-        if ($file->isValid() !== true) {
-            throw new Exception(sprintf('Input file has error: #%d "%s".',
-                $file->getError(),
-                $file->getErrorMessage()));
-        }
-        
         if ($request->hasFile($imageName) == false) {
             if (array_key_exists('error_no_file', $data)
                 AND $data['error_no_file'] == true) {
@@ -45,6 +39,12 @@ class Miscellaneous
             else {
                 return false;
             }
+        }
+
+        if ($file->isValid() !== true) {
+            throw new Exception(sprintf('Input file has error: #%d "%s".',
+                $file->getError(),
+                $file->getErrorMessage()));
         }
 
         if (array_key_exists('path', $data) == false

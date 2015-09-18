@@ -5,19 +5,19 @@
         </div>
         <div class="buttons">
             <input type="hidden" name="button_action">
-            @if(isset($save))
+            @if(isset($save) && $save == true)
                 <button type="button" name="action" value="save" class="btn btn-success">Сохранить</button>
             @endif
             
-            @if(isset($saveAndExit))
+            @if(isset($saveAndExit) && $saveAndExit == true)
                 <button type="button" name="action" value="save and exit" class="btn bg-orange">Сохранить и выйти</button>
             @endif
 
-            @if(isset($saveAndLook))
+            @if(isset($saveAndLook) && $saveAndLook == true)
                 <button type="button" name="action" value="save and look" class="btn btn-info">Сохранить и просмотреть</button>
             @endif
 
-            @if(isset($close))      
+            @if(isset($close) && $close == true)      
                 <a href="{{ "/backend/$controller" }}" class="btn btn-danger close_form" title="Закрыть">Закрыть</a>
             @endif
         </div>

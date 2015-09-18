@@ -1,6 +1,7 @@
 <ul class="treeview-menu">
   @foreach($menu[$parent_id] as $item)
-  	<li>
+    <?php $active = $_SERVER['REQUEST_URI'] == '/backend/'.$item->alias ? 'active' : '' ?>
+  	<li class="{{ $active }}">
   		@if(!isset($menu[$item->id]) AND isset($item->add_button))
       		<a href="{{ url('/backend/' . $item->add_link) }}" class="pull-right btn add-but btn-xs {{ $item->add_class or 'btn-success' }}">{{ $item->add_button }}</a>
       	@endif

@@ -20,7 +20,7 @@ class NewMessages extends AbstractWidget
      */
     public function run()
     {
-        $listMessages = Contact::where('displayed', 0)->get();
+        $listMessages = Contact::where('displayed', 0)->where('status', 0)->get();
         return view("Backend.Widgets.new_messages", [
             'listMessages' => $listMessages,
             'count' => count($listMessages),

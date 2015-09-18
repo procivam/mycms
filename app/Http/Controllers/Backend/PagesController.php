@@ -33,7 +33,6 @@ class PagesController extends Controller
 
     /**
     * Constructor
-    *
     */
     public function __construct() {
         \Setting::set('controller_name', $this->moduleName);
@@ -88,22 +87,14 @@ class PagesController extends Controller
             $result[$item->parent_id][] = $item;
         }
 
-        /**
-        * View make
-        */
-
-        // make controlls row
-        $controls = view('Backend.Widgets.control', [
-            'createLong' => true,
+        // Render
+        return view('Backend.Pages.index', [
+            'h1'       => $this->moduleName,
+            'result'   => $result,
+            'control' => [
+                'createLong' => true,
+            ],
         ]);
-
-        // render all view
-        $content = view('Backend.Pages.index', [
-            'result' => $result,
-            'controls' => $controls
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -113,24 +104,24 @@ class PagesController extends Controller
      */
     public function create()
     {
-        /**
-        * View make
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Создание страницы', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'saveAndLook' => true,
-            'close'       => true,
-        ]);
+        $list = Pages::orderBy('sort')->get();
+        $list = [];
+        foreach ($list as $key => $item) {
+            $list[$item->parent_id][] = $item;
+        }
 
-        // render all wiev
-        $content = view('Backend.Pages.form', [ 
-            'controls' => $controls,
+        // Render
+        return view('Backend.Pages.form', [ 
+            'h1' => $this->moduleName,
+            'list' => $list,
+            'control_create' => [
+                'actionName'  => 'Создание страницы', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'saveAndLook' => true,
+                'close'       => true,
+            ],
         ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -185,26 +176,20 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
-        //
         $obj = Pages::find($id);
-        /**
-        * View
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Редактирование страницы', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'close'       => true,
-        ]);
-        // render all wiev
-        $content = view('Backend.Pages.form', [
+
+        // Render
+        return view('Backend.Pages.form', [ 
+            'h1' => $this->moduleName,
             'obj' => $obj,
-            'controls' => $controls,
+            'control_create' => [
+                'actionName'  => 'Редактирование страницы', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'saveAndLook' => true,
+                'close'       => true,
+            ],
         ]);
-
-        return view('Backend.index', ['content' => $content]);
-
     }
 
     /**
@@ -261,6 +246,8 @@ class PagesController extends Controller
     {
         // remove page
         $res = Pages::find($id)->delete();
+        // Reset parent_id for childerns.
+        Pages::where('parent_id', $id)->update(['parent_id' => 0]);
 
         if ($res) {
             $currNoty = [

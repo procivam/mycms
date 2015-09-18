@@ -77,23 +77,14 @@ class ContactController extends Controller
             $list = Model::get();
         }
 
-
-        /**
-        * View make
-        */
-
-        // make controlls row
-        $controls = view('Backend.Widgets.control', [
-            'date_range' => true
+        // Render
+        return view('Backend.Contact.index', [
+            'h1'       => $this->moduleName,
+            'result'   => $list,
+            'control' => [
+                'dateRange' => true,
+            ],
         ]);
-
-        // render all view
-        $content = view('Backend.Contact.index', [
-            'result' => $list,
-            'controls' => $controls
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -112,24 +103,18 @@ class ContactController extends Controller
             $obj->displayed = 1;
             $obj->save();
         }
-        /**
-        * View
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Редактирование формы', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'close'       => true,
-        ]);
-        // render all wiev
-        $content = view('Backend.Contact.form', [
+
+        // Render
+        return view('Backend.Contact.form', [ 
+            'h1' => $this->moduleName,
             'obj' => $obj,
-            'controls' => $controls,
+            'control_create' => [
+                'actionName'  => 'Редактирование формы', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'close'       => true,
+            ],
         ]);
-
-        return view('Backend.index', ['content' => $content]);
-
     }
 
     /**

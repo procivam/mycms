@@ -83,24 +83,15 @@ class NewsController extends Controller
             $list = News::orderBy('published_at', 'DESC')->get();
         }
 
-
-        /**
-        * View make
-        */
-
-        // make controlls row
-        $controls = view('Backend.Widgets.control', [
-            'createLong' => true,
-            'date_range' => true
-        ]);
-
-        // render all view
-        $content = view('Backend.News.index', [
+        // Render
+        return view('Backend.News.index', [
             'result' => $list,
-            'controls' => $controls
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
+            'h1' => $this->moduleName,
+            'control' => [
+                'createLong' => true,
+                'dateRange' => true
+                ]
+            ]);
     }
 
     /**
@@ -110,24 +101,17 @@ class NewsController extends Controller
      */
     public function create()
     {
-        /**
-        * View make
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Создание новости', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'saveAndLook' => true,
-            'close'       => true,
+        // Render
+        return view('Backend.News.form', [
+            'h1' => $this->moduleName,
+            'control_create' => [
+                'actionName'  => 'Создание новости', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'saveAndLook' => true,
+                'close'       => true,
+            ], 
         ]);
-
-        // render all wiev
-        $content = view('Backend.News.form', [ 
-            'controls' => $controls,
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -167,17 +151,6 @@ class NewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -187,24 +160,18 @@ class NewsController extends Controller
     {
         //
         $obj = News::find($id);
-        /**
-        * View
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Редактирование новости', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'close'       => true,
-        ]);
-        // render all wiev
-        $content = view('Backend.News.form', [
+        
+        // Render
+        return view('Backend.News.form', [
             'obj' => $obj,
-            'controls' => $controls,
+            'h1' => $this->moduleName,
+            'control_create' => [
+                'actionName'  => 'Редактирование новости', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'close'       => true,
+            ], 
         ]);
-
-        return view('Backend.index', ['content' => $content]);
-
     }
 
     /**

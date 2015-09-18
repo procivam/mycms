@@ -16,11 +16,6 @@ class ArticlesController extends Controller
     * @access private
     */
     private $moduleName = 'Статьи';
-    /**
-     * base foolder for view
-     * @var string
-     */
-    private $viewFolder = 'Backend.Articles';
 
     /**
     * Validation rights
@@ -28,11 +23,11 @@ class ArticlesController extends Controller
     * @access private
     */
     private $rights = [
-        'name'       => 'required|max:255',
-        'alias'        => 'required|max:255',
-        'title'         => 'required|max:255',
-        'h1'           => 'required|max:255',
-        'text'         => 'required'
+        'name'  => 'required|max:255',
+        'alias' => 'required|max:255',
+        'title' => 'required|max:255',
+        'h1'    => 'required|max:255',
+        'text'  => 'required'
     ];
 
     /**
@@ -87,24 +82,15 @@ class ArticlesController extends Controller
             $list = Model::orderBy('created_at', 'DESC')->get();
         }
 
-
-        /**
-        * View make
-        */
-
-        // make controlls row
-        $controls = view('Backend.Widgets.control', [
-            'createLong' => true,
-            'date_range' => true
+        // Render
+        return view('Backend.Articles.index', [
+            'h1'       => $this->moduleName,
+            'result'   => $list,
+            'control' => [
+                'createLong' => true,
+                'dateRange' => true,
+            ],
         ]);
-
-        // render all view
-        $content = view($this->viewFolder.'.index', [
-            'result' => $list,
-            'controls' => $controls
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -114,24 +100,17 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-        /**
-        * View make
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Создание новости', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'saveAndLook' => true,
-            'close'       => true,
+        // Render
+        return view('Backend.Articles.form', [
+            'h1' => $this->moduleName,
+            'control_create' => [
+                'actionName'  => 'Создание новости', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'saveAndLook' => true,
+                'close'       => true,
+            ],
         ]);
-
-        // render all wiev
-        $content = view($this->viewFolder.'.form', [ 
-            'controls' => $controls,
-        ]);
-
-        return view('Backend.index', ['content' => $content]);
     }
 
     /**
@@ -188,26 +167,19 @@ class ArticlesController extends Controller
      */
     public function edit($id)
     {
-        //
         $obj = Model::find($id);
-        /**
-        * View
-        */
-        // make controlls row
-        $controls = view('Backend.Widgets.control_create', [
-            'actionName'  => 'Редактирование новости', 
-            'save'        => true,
-            'saveAndExit' => true,
-            'close'       => true,
-        ]);
-        // render all wiev
-        $content = view($this->viewFolder.'.form', [
+        
+        // Render
+        return view('Backend.Articles.form', [ 
+            'h1' => $this->moduleName,
             'obj' => $obj,
-            'controls' => $controls,
+            'control_create' => [
+                'actionName'  => 'Редактирование статьи', 
+                'save'        => true,
+                'saveAndExit' => true,
+                'close'       => true,
+            ],
         ]);
-
-        return view('Backend.index', ['content' => $content]);
-
     }
 
     /**
