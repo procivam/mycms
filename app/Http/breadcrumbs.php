@@ -91,3 +91,12 @@ Breadcrumbs::register('backend.contact.edit', function($breadcrumbs)
     $breadcrumbs->parent('backend.contact');
     $breadcrumbs->push('Редактирование формы', route('backend.contact.edit'));
 });
+
+/**
+ * Настройки
+ */
+Breadcrumbs::register('backend.config', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.home');
+    $breadcrumbs->push('Настройки', route('backend.config'));
+});

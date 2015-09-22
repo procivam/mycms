@@ -53,6 +53,10 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	Route::post('contact/edit/{id}',   "ContactController@update")->where(['id' => '[0-9]+']);
 	Route::get('contact/destroy/{id}', ["as" => "contact.destroy", "uses" => "ContactController@destroy"])->where(['id' => '[0-9]+']);
 
+	// Links to controller Config
+	Route::get('config',              ['as' => 'config', 'uses' => "ConfigController@index"]);
+	Route::post('config',              "ConfigController@update");
+
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
 		return json_encode(getMessages());

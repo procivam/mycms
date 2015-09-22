@@ -14,7 +14,7 @@
           <ul class="menu">
             @foreach ($listMessages as $message)
               <li><!-- start message -->
-                <a href="{{ url('backend/contact/show/' . $message->id) }}">
+                <a href="{{ url('backend/contact/edit/' . $message->id) }}">
                   <div class="pull-left">
                     <img src="/Backend/img/user2-160x160.jpg" class="img-circle" alt="{{ $message->name }}"/>
                   </div>

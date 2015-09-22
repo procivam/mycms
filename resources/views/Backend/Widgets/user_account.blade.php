@@ -7,10 +7,10 @@
   <ul class="dropdown-menu">
     <!-- User image -->
     <li class="user-header">
-      <img src="/Backend/img/user2-160x160.jpg" class="img-circle" alt="{{ $user->name }}" />
+      <img src="/Backend/img/default_user.png" class="img-circle" alt="{{ $user->name }}" />
       <p>
         {{ $user->name }}
-        <small>Member since Nov. 2012</small>
+        <small>Создано {{ Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</small>
       </p>
     </li>
     <!-- Menu Body -->
