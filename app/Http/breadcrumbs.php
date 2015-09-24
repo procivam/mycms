@@ -66,9 +66,9 @@ Breadcrumbs::register('backend.articles', function($breadcrumbs)
 Breadcrumbs::register('backend.articles.create', function($breadcrumbs)
 {
     $breadcrumbs->parent('backend.articles');
-    $breadcrumbs->push('Создание новости', route('backend.articles.create'));
+    $breadcrumbs->push('Создание статьи', route('backend.articles.create'));
 });
-// Главная > Статьи > Редактировать страницу
+// Главная > Статьи > Редактировать статью
 Breadcrumbs::register('backend.articles.edit', function($breadcrumbs)
 {
     $breadcrumbs->parent('backend.articles');
@@ -99,4 +99,26 @@ Breadcrumbs::register('backend.config', function($breadcrumbs)
 {
     $breadcrumbs->parent('backend.home');
     $breadcrumbs->push('Настройки', route('backend.config'));
+});
+
+/**
+* Пользователи
+*/
+// Главная > Пользователи
+Breadcrumbs::register('backend.users', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.home');
+    $breadcrumbs->push('Пользователи', route('backend.users'));
+});
+// Главная > Пользователи > Создать страницу
+Breadcrumbs::register('backend.users.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.users');
+    $breadcrumbs->push('Создание пользователя', route('backend.users.create'));
+});
+// Главная > Пользователи > Редактировать пользователя
+Breadcrumbs::register('backend.users.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.users');
+    $breadcrumbs->push('Редактирование Пользователя', route('backend.users.edit'));
 });

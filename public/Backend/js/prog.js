@@ -117,6 +117,22 @@ jQuery(document).ready(function(){
             });
         };
 
+        if ($('a.smkConfirm').length) {
+            $('a.smkConfirm').click(function(event){
+                var it = $(this);
+                event.preventDefault();
+                $.smkConfirm({
+                    text: 'Вы уверены?',
+                    accept: 'Да',
+                    cancel: 'Нет'
+                }, function(e){
+                    if (e) {
+                        location.href = $(it).attr('href');
+                    };
+                });
+            });
+        };
+
         // Events to main form
         if ($('form[name="main_form"]').length) {
             var main_form = $('form[name="main_form"]');

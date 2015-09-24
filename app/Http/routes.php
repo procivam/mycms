@@ -57,6 +57,14 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	Route::get('config',              ['as' => 'config', 'uses' => "ConfigController@index"]);
 	Route::post('config',              "ConfigController@update");
 
+	// Links to controller Contact
+	Route::get('users',              ['as' => 'users', 'uses' => "UsersController@index"]);
+	Route::get('users/create',       ["as" => "users.create", "uses" => "UsersController@create"]);
+	Route::post('users/create',      "UsersController@store");
+	Route::get('users/edit/{id}',    ["as" => "users.edit", "uses" => "UsersController@edit"])->where(['id' => '[0-9]+']);
+	Route::post('users/edit/{id}',   "UsersController@update")->where(['id' => '[0-9]+']);
+	Route::get('users/destroy/{id}', ["as" => "users.destroy", "uses" => "UsersController@destroy"])->where(['id' => '[0-9]+']);
+
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
 		return json_encode(getMessages());

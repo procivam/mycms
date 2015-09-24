@@ -12,7 +12,7 @@
     				<input type="checkbox" class="listStatus" {{ $item->status ? 'checked' : '' }}>
     			</td>
     			<td class="controlDropdown">
-    				<a href="{{ url('backend/'.$controller.'/destroy/'.$item->id) }}">удалить</a>
+    				<a href="{{ url('backend/'.$controller.'/destroy/'.$item->id) }}" class="smkConfirm">удалить</a>
     			</td>
     		</tr>
     	</table>
