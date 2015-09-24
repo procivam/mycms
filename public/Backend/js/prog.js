@@ -252,6 +252,7 @@ jQuery(document).ready(function(){
 
             // Function update sort in DB
             function updateSort(e) {
+                $(e.target).addClass('ajax-loaded');
                 var list  = e.length ? e : $(e.target),
                     table = $(e.target).data('table');
                 if (window.JSON) {
@@ -268,6 +269,7 @@ jQuery(document).ready(function(){
                             json : json
                         },
                         function(data){
+                            $(e.target).removeClass('ajax-loaded');
                             if (data.smoke == true) {
                                 $.smkAlert(data);
                             };
