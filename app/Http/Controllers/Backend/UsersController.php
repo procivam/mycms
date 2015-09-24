@@ -159,7 +159,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $obj = User::find($id);
+        $obj = User::findOrFail($id);
 
         // Render
         return view('Backend.Users.form', [ 
@@ -185,7 +185,7 @@ class UsersController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
 
