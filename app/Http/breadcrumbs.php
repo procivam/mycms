@@ -122,3 +122,25 @@ Breadcrumbs::register('backend.users.edit', function($breadcrumbs)
     $breadcrumbs->parent('backend.users');
     $breadcrumbs->push('Редактирование Пользователя', route('backend.users.edit'));
 });
+
+/**
+* Слайдер
+*/
+// Главная > Слайдер
+Breadcrumbs::register('backend.slider', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.home');
+    $breadcrumbs->push('Слайдер', route('backend.slider'));
+});
+// Главная > Слайдер > Создать слайдер
+Breadcrumbs::register('backend.slider.create', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.slider');
+    $breadcrumbs->push('Создание слайдера', route('backend.slider.create'));
+});
+// Главная > Слайдер > Редактировать слайдер
+Breadcrumbs::register('backend.slider.edit', function($breadcrumbs)
+{
+    $breadcrumbs->parent('backend.slider');
+    $breadcrumbs->push('Редактировать слайдер', route('backend.slider.edit'));
+});

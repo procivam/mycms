@@ -247,6 +247,8 @@ jQuery(document).ready(function(){
                 rootClass       : 'nestable',
                 expandBtnHTML   : '',
                 collapseBtnHTML : '',
+                maxDepth        : $('.nestable').attr('data-max-depth') ?
+                    $('.nestable').attr('data-max-depth') : 5
             })
             .on('change', updateSort);
 

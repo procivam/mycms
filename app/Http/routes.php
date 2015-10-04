@@ -65,6 +65,15 @@ Route::group(['namespace' => 'Backend', 'as' => 'backend.', 'middleware' => 'aut
 	Route::post('users/edit/{id}',   "UsersController@update")->where(['id' => '[0-9]+']);
 	Route::get('users/destroy/{id}', ["as" => "users.destroy", "uses" => "UsersController@destroy"])->where(['id' => '[0-9]+']);
 
+	// Links to controller Slider
+	Route::get('slider',              ['as' => 'slider', 'uses' => "SliderController@index"]);
+	Route::get('slider/create',       ["as" => "slider.create", "uses" => "SliderController@create"]);
+	Route::post('slider/create',      "SliderController@store");
+	Route::get('slider/edit/{id}',    ["as" => "slider.edit", "uses" => "SliderController@edit"])->where(['id' => '[0-9]+']);
+	Route::post('slider/edit/{id}',   "SliderController@update")->where(['id' => '[0-9]+']);
+	Route::get('slider/destroy/{id}', ["as" => "slider.destroy", "uses" => "SliderController@destroy"])->where(['id' => '[0-9]+']);
+	Route::get('slider/destroyImage/{id}', ["as" => "slider.destroyImage", "uses" => "SliderController@destroyImage"])->where(['id' => '[0-9]+']);
+
 	// Notifications for Smoke.js plugin
 	Route::get('notifications', function() {
 		return json_encode(getMessages());

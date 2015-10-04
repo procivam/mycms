@@ -6,17 +6,18 @@ use Illuminate\Http\Request;
 
 use laravel\Http\Requests;
 use laravel\Http\Controllers\Controller;
-use laravel\Models\Backend\Pages;
+
+use laravel\Models\Backend\Sliders as Model;
 use laravel\Models\Miscellaneous;
 
-class PagesController extends Controller
+class SliderController extends Controller
 {
     /**
     * Module name for view
     *
     * @access private
     */
-    private $moduleName = 'Страницы';
+    private $moduleName = 'Слайдер';
 
     /**
     * Validation rights
@@ -24,27 +25,26 @@ class PagesController extends Controller
     * @access private
     */
     private $rights = [
-        'name'    => 'required|max:255',
-        'alias'   => 'required|max:255',
-        'title'   => 'required|max:255',
-        'h1'      => 'required|max:255',
-        'text'    => 'required'
+        'name'         => 'required|max:255'
     ];
 
     /**
     * Constructor
+    *
     */
     public function __construct() {
         \Setting::set('controller_name', $this->moduleName);
     }
 
     /**
-    * Function redirect to
-    * Defines the actio after save or update actions
-    *
-    * @param integer id default null
-    * @access private 
-    */
+     * Function redirect to
+     * Defines the actio after save or update actions
+     *
+     * @param integer id default null
+     * @access private
+     *
+     * @return redirect
+     */
     private function redirectTo($id = null)
     {
         $button = \Input::get('button_action');
@@ -57,11 +57,11 @@ class PagesController extends Controller
                     return redirect()->action('Backend\\'.$controller, [$id]);
                     break;
                 case 'save and look':
-                    return redirect()->action('Backend\PagesController@edit', [$id]);
+                    return redirect()->action('Backend\SliderController@edit', [$id]);
                     break;
             }
         }
-        return redirect()->action('Backend\PagesController@index');
+        return redirect()->action('Backend\SliderController@index');
     }
 
     /**
@@ -71,30 +71,16 @@ class PagesController extends Controller
      */
     public function index()
     {
-        // Filter daterange
-        if (trim(\Input::get('daterange')) !== '') {
-            list($start, $end) = explode('_', \Input::get('daterange'));
-            $list = Pages::whereBetween('created_at', [$start.' 00:00:00', $end.' 23:59:59'])
-                ->orderBy('sort')
-                ->get();
-        }
-        else {
-            // Show list with all items (Pages) with controll elements
-            $list = Pages::orderBy('sort')->get();
-        }
-        $result = [];
-        foreach ($list as $key => $item) {
-            $result[$item->parent_id][] = $item;
-        }
+        $list = Model::orderBy('sort')->get();
 
         // Render
-        return view('Backend.Pages.index', [
-            'h1'       => $this->moduleName,
-            'result'   => $result,
+        return view('Backend.Slider.index', [
+            'result' => $list,
+            'h1'     => $this->moduleName,
             'control' => [
                 'createLong' => true,
-            ],
-        ]);
+                ]
+            ]);
     }
 
     /**
@@ -104,23 +90,15 @@ class PagesController extends Controller
      */
     public function create()
     {
-        $list = Pages::orderBy('sort')->get();
-        $list = [];
-        foreach ($list as $key => $item) {
-            $list[$item->parent_id][] = $item;
-        }
-
         // Render
-        return view('Backend.Pages.form', [ 
+        return view('Backend.Slider.form', [
             'h1' => $this->moduleName,
-            'list' => $list,
             'control_create' => [
-                'actionName'  => 'Создание страницы', 
+                'actionName'  => 'Создание слайда', 
                 'save'        => true,
                 'saveAndExit' => true,
-                'saveAndLook' => true,
                 'close'       => true,
-            ],
+            ], 
         ]);
     }
 
@@ -134,38 +112,32 @@ class PagesController extends Controller
         // Validate incoming data
         $this->validate($request, $this->rights);
 
-        $pages = new Pages;
+        $model = new Model;
 
-        $pages->name        = $request->name;
-        $pages->alias       = $request->alias;
-        $pages->title       = $request->title;
-        $pages->status      = $request->status ? $request->status : 0;
-        $pages->state       = $request->state;
-        $pages->h1          = $request->h1;
-        $pages->text        = $request->text;
-        $pages->keywords    = $request->keywords;
-        $pages->description = $request->description;
-        
+        $model->name        = $request->name;
+        $model->description = $request->description;
+        $model->url         = $request->url;
+        $model->status      = $request->status ? $request->status : 0;
+
         try {
-            $image = Miscellaneous::uploadImage($request, ['path' => 'pages']);
+            $image = Miscellaneous::uploadImage($request, ['path' => 'slider']);
         } catch (\Exception $e) {
             addMessage(['text' => $e->getMessage(), 'type' => 'danger', 'time' => 10]);
         }
-        if ($image !== false) {
-            $pages->image = $image;
+        if (isset($image) && $image !== false) {
+            $model->image = $image;
         }
-
-        $res = $pages->save();
+        
+        $res = $model->save();
 
         if ($res) {
-            $currNoty = [
+            addMessage([
                 'text' => 'Данные успешно сохранены',
                 'type' => 'success',
-            ];
-            addMessage($currNoty);
+            ]);
         }
         // Redirect
-        return $this->redirectTo($pages->id);
+        return $this->redirectTo($model->id);
     }
 
     /**
@@ -176,19 +148,19 @@ class PagesController extends Controller
      */
     public function edit($id)
     {
-        $obj = Pages::find($id);
-
+        //
+        $obj = Model::findOrFail($id);
+        
         // Render
-        return view('Backend.Pages.form', [ 
-            'h1' => $this->moduleName,
+        return view('Backend.Slider.form', [
             'obj' => $obj,
+            'h1' => $this->moduleName,
             'control_create' => [
-                'actionName'  => 'Редактирование страницы', 
+                'actionName'  => 'Редактирование новости', 
                 'save'        => true,
                 'saveAndExit' => true,
-                'saveAndLook' => true,
                 'close'       => true,
-            ],
+            ], 
         ]);
     }
 
@@ -202,29 +174,23 @@ class PagesController extends Controller
     {
         // Validate incoming data
         $this->validate($request, $this->rights);
+
+        $model = Model::findOrFail($id);
+        $model->name        = $request->name;
+        $model->description = $request->description;
+        $model->url         = $request->url;
+        $model->status      = $request->status ? $request->status : 0;
+        
         try {
-            $image = Miscellaneous::uploadImage($request, ['path' => 'pages']);
+            $image = Miscellaneous::uploadImage($request, ['path' => 'slider']);
         } catch (\Exception $e) {
             addMessage(['text' => $e->getMessage(), 'type' => 'danger', 'time' => 10]);
         }
-
-        $page = Pages::find($id);
-        $page->name        = $request->name;
-        $page->alias       = $request->alias;
-        $page->title       = $request->title;
-        $page->status      = $request->status ? $request->status : 0;
-        $page->state       = $request->state;
-        $page->h1          = $request->h1;
-        $page->text        = $request->text;
-        $page->keywords    = $request->keywords;
-        $page->description = $request->description;
-        
         if (isset($image) && $image !== false) {
-            $page->image = $image;
+            $model->image = $image;
         }
-        $res = $page->save();
-        
 
+        $res = $model->save();
         if ($res) {
             $currNoty = [
                 'text' => 'Данные успешно обновлены',
@@ -244,25 +210,24 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-        // remove page
-        $page = Pages::findOrFail($id);
-        Miscellaneous::removeImages('pages', $page->image);
+    	$model = Model::findOrFail($id);
 
-        $res = $page->delete();
-        // Reset parent_id for childerns.
-        Pages::where('parent_id', $id)->update(['parent_id' => 0]);
+    	Miscellaneous::removeImages('slider', $model->image);
 
-        if ($res) {
+        // remove resource
+        $res = $model->delete();
+
+     	if ($res) {
             addMessage([
                 'text' => 'Данные успешно удалены',
                 'type' => 'success',
             ]);
         }
 
-        return redirect()->action('Backend\PagesController@index');
+        return redirect()->action('Backend\SliderController@index');
     }
 
-    /**
+     /**
      * Remove image.
      *
      * @param  int  $id
@@ -270,11 +235,11 @@ class PagesController extends Controller
      */
     public function destroyImage($id)
     {
-        $page = Pages::findOrFail($id);
+        $page = Model::findOrFail($id);
 
         if ($page->image) {
             
-            $res = Miscellaneous::removeImages('pages', $page->image);
+            $res = Miscellaneous::removeImages('slider', $page->image);
             
             $page->image = null;
             $page->save();
@@ -285,6 +250,6 @@ class PagesController extends Controller
             ]);
         }
 
-        return redirect()->action('Backend\PagesController@edit', [$id]);
+        return redirect()->action('Backend\SliderController@edit', [$id]);
     }
 }

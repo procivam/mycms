@@ -49,6 +49,7 @@ td.controlDropdown {
 	content: "";
 	display: block;
 	background: url('/Backend/img/loader.gif') no-repeat 50% 50%, rgba(107, 175, 156, 0.25);
+	background-size: contain;
 	position: absolute;
 	z-index: 30;
 	height: 100%;

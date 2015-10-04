@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    @include('Backend.Parts.Head')    
+    @include('Backend.Parts.Head')
     </head>
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
@@ -28,7 +28,7 @@
 
             @include('Backend.Parts.Footer')
             
-            <!-- Control Sidebar -->      
+            <!-- Control Sidebar -->
             @include('Backend.Parts.ControlSidebar')
         </div><!-- ./wrapper -->
             

@@ -62,7 +62,7 @@ return array(
      * @param integer  size         Font size watermark. 
      */
     'watermark' => [
-        'text'      => $_SERVER['HTTP_HOST'],
+        'text'      => isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '',
         'position'  => 'bottom-right',
         'color'     => '#777',
         'size'      => 20,
@@ -100,6 +100,20 @@ return array(
             ],
             'original' => [
                 'watermark' => false,
+            ],
+        ],
+        'slider' => [
+            'small' => [
+                'width' => 200,
+                'height' => 200,
+                'crop' => true,
+            ],
+            'big' => [
+                'width' => 1920,
+                'height' => 600,
+                'crop' => true,
+            ],
+            'original' => [
             ],
         ],
     ],
